@@ -20,12 +20,12 @@ import com.typesafe.config.{Config, ConfigFactory}
 
 object TestConfiguration {
   val config: Config        = ConfigFactory.load()
-  val env: String           = config.getString("environment")
+  val envName: String           = config.getString("environment")
   val defaultConfig: Config = config.getConfig("local")
-  val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
+  val envConfig: Config     = config.getConfig(envName).withFallback(defaultConfig)
 
   def url(service: String): String = {
-    val host = env match {
+    val host = envName match {
       case "local" => s"$environmentHost:${servicePort(service)}"
       case _       => s"${envConfig.getString(s"services.host")}"
     }
@@ -37,4 +37,21 @@ object TestConfiguration {
   def servicePort(serviceName: String): String = envConfig.getString(s"services.$serviceName.port")
 
   def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
+
+  lazy val baseApiUrl: String = {
+    envConfig.getString("baseApiUrl")
+  }
+
+  lazy val clientId: String = {
+    envConfig.getString("privilegedApplicationClientId")
+  }
+
+  lazy val clientSecret: String = {
+    envConfig.getString("privilegedApplicationClientSecret")
+  }
+
+  lazy val totpSecret: String = {
+    envConfig.getString("privilegedApplicationTotpSecret")
+  }
+
 }
