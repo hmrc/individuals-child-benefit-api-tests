@@ -22,13 +22,12 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.RestAssured.`given`
 import io.restassured.http.ContentType
 
-
-abstract class AbstractOauthHelper {
+trait AbstractOauthHelper {
 
   // TODO - static somewhere else
-  protected var lastOauthResponse: Option[ValidatableResponse] = None
+  var lastOauthResponse: Option[ValidatableResponse] = None
 
-  protected final def callOauthTokenEndpoint(spec: RequestSpecification): ValidatableResponse = {
+  final def callOauthTokenEndpoint(spec: RequestSpecification): ValidatableResponse = {
       val oauthTokenUrl = s"${baseApiUrl}/oauth/token"
 
       lastOauthResponse = Some(spec
@@ -39,7 +38,7 @@ abstract class AbstractOauthHelper {
       lastOauthResponse.get
   }
 
-  def oauthRequestSpecification(grantType: String, params: Map[String, String]): RequestSpecification = {
+  final def oauthRequestSpecification(grantType: String, params: Map[String, String]): RequestSpecification = {
     val base: RequestSpecification = 
       `given`()
         .contentType(ContentType.URLENC)
@@ -53,7 +52,7 @@ abstract class AbstractOauthHelper {
   }
 
   // TODO - this should be elsewhere
-  def assertLastOauthCallSucceeded(): Unit = {
+  final def assertLastOauthCallSucceeded(): Unit = {
     import io.restassured.http.ContentType.JSON;
     import org.hamcrest.CoreMatchers.{is, not};
 

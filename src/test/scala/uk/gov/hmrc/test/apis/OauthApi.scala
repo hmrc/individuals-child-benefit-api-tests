@@ -43,4 +43,3 @@ class OauthAPI extends AbstractOauthHelper {
         AccessTokenHolder.extractAndStoreToken(lastOauthResponse.get)
     }
 }
-  

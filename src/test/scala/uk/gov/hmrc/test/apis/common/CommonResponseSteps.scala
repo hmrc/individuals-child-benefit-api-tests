@@ -52,6 +52,11 @@ trait CommonResponseSteps {
   def expectedArrayJsonErrorCode(expectedCode: String): Unit = expectedJsonBodyField("errors.code", singletonList(expectedCode))
   def expectedArrayJsonMessage(expectedMessage: String): Unit = expectedJsonBodyField("errors.message", singletonList(expectedMessage))
 
+  def iGetNotFoundResponse(expectedErrorCode: String): Unit = {
+    expectedHttpStatusCode(404);
+    expectedJsonErrorCode(expectedErrorCode);
+  }
+
   def iGetAnAcceptHeaderInvalidResponse(): Unit = {
     expectedHttpStatusCode(406);
     expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID");

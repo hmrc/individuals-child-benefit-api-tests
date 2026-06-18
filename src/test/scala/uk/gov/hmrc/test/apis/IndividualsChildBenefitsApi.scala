@@ -20,6 +20,7 @@ import uk.gov.hmrc.test.apis.common.CommonApiSteps
 import io.restassured.RestAssured.`given`;
 import uk.gov.hmrc.test.api.conf.TestConfiguration.*
 import org.hamcrest.CoreMatchers.*;
+import uk.gov.hmrc.test.apis.helpers.AuthTokenHelpers
 
 trait IndividualsChildBenefitsApi extends CommonApiSteps {
   
