@@ -14,10 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.common
+package uk.gov.hmrc.test.apis.helpers
 
-import uk.gov.hmrc.test.apis.helpers.RequestHelper
+import io.restassured.specification.RequestSpecification
 
-// TODO: this may be a duplicate of the same file in the steps package
-class CommonApiSteps extends RequestHelper with CommonResponseSteps {
+trait RequestHelper {
+
+  protected var builder: HmrcRequestSpecBuilder = new HmrcRequestSpecBuilder();
+
+  def specification(): RequestSpecification = {
+      return builder.build();
+  }
+
+  // @Before
+  def cleanup(): Unit = {
+      builder = new HmrcRequestSpecBuilder();
+  }
 }

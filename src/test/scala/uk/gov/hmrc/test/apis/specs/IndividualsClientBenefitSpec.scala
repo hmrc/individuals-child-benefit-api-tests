@@ -1,22 +1,42 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.test.api.specs
 
-import uk.gov.hmrc.test.api.service.IndividualsChildBenefitService
-import uk.gov.hmrc.test.api.data.CreateClaimTestData
+import uk.gov.hmrc.test.apis.helpers.AcceptHeaderHelper
+import uk.gov.hmrc.test.apis.helpers.ContentTypeHelper
+import uk.gov.hmrc.test.apis.steps.apis.IndividualsChildBenefitApiSteps
 
 class IndividualsClientBenefitSpec extends BaseSpec {
-  Feature("Example of using the Individuals Child Benefit API") {
-    val api = new IndividualsChildBenefitService()
+  val steps = new AcceptHeaderHelper with ContentTypeHelper with IndividualsChildBenefitApiSteps {}
 
-    Scenario("Calling the Create Child Benefit Claim endpoint with an incorrect accept header version returns a 404 matching resource not found response") {
+  Feature("Example of using the Individuals Child Benefit API") {
+    Scenario("Calling the Create Child Benefit Claim endpoint with an invalid accept header returns a 406 accept header invalid response") {
+
       Given("I have an incorrect accept header version")
+      steps.withIncorrectAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      
+      steps.withJsonContentTypeHeader()
+
       When("I make a request to the post child benefits claim endpoint with a valid payload")
-      val result = api.someEndpoint(CreateClaimTestData.validCreateClaim)
+      steps.iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload()
 
       Then("I get an unacceptable response due to an invalid accept header")
-      result.status shouldBe 406
+      steps.iGetANotAcceptableResponseDueToAnInvalidAcceptHeader()
     }
   }
 }

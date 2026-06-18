@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.common
+package uk.gov.hmrc.test.apis.helpers
 
-import uk.gov.hmrc.test.apis.helpers.RequestHelper
+trait ContentTypeHelper {
+  self: RequestHelper =>
 
-// TODO: this may be a duplicate of the same file in the steps package
-class CommonApiSteps extends RequestHelper with CommonResponseSteps {
+  def withJsonContentTypeHeader(): HmrcRequestSpecBuilder = builder.withJsonContentTypeHeader()
+//
+  def withInvalidJsonContentTypeHeader(): HmrcRequestSpecBuilder = builder.withInvalidJsonContentTypeHeader()
+//    
+  def withNoJsonContentTypeHeader(): HmrcRequestSpecBuilder = builder
 }

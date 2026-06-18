@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.common
+package uk.gov.hmrc.test.apis.helpers
 
-import uk.gov.hmrc.test.apis.helpers.RequestHelper
+import io.restassured.RestAssured.oauth2;
 
-// TODO: this may be a duplicate of the same file in the steps package
-class CommonApiSteps extends RequestHelper with CommonResponseSteps {
+trait AuthTokenHelpers {
+  self: RequestHelper =>
+
+  def withBearerTokenOf(bearerToken: String): HmrcRequestSpecBuilder = builder.setAuth(oauth2(bearerToken))
 }

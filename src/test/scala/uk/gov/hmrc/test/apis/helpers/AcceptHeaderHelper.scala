@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.common
+package uk.gov.hmrc.test.apis.helpers
 
-import uk.gov.hmrc.test.apis.helpers.RequestHelper
+trait AcceptHeaderHelper {
+  self: RequestHelper =>
 
-// TODO: this may be a duplicate of the same file in the steps package
-class CommonApiSteps extends RequestHelper with CommonResponseSteps {
+  def withIncorrectAcceptHeaderVersion(): HmrcRequestSpecBuilder =
+      builder.setAccept("application/vnd.hmrc.99.0+json")
+//
+  def withInvalidAcceptHeader(): HmrcRequestSpecBuilder =
+      builder.setAccept("application/vnd.xyz.1.0+json")
+//    
+  def withNoAcceptHeader(): HmrcRequestSpecBuilder =
+      builder.setNoAccept()
 }
