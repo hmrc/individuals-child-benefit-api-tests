@@ -19,7 +19,7 @@ package uk.gov.hmrc.test.apis.specs.relationships
 import uk.gov.hmrc.test.apis.steps.RelationshipsSteps
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 
-class RelationshipsRequestHeadersSpec extends BaseSpec with RelationshipsSteps{
+class RelationshipsRequestHeadersSpec extends BaseSpec with RelationshipsSteps {
 
   Feature("Create Child Benefit Get Relationship Details Endpoint - Request Header Scenarios") {
     Scenario(

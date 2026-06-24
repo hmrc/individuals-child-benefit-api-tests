@@ -63,7 +63,7 @@ trait CommonResponseSteps {
     expectedHttpStatusCode(400)
     expectedArrayJsonErrorCode("INVALID_PAYLOAD")
   }
-  
+
   def iGetAnUnsupportedMediaTypeResponse(): Unit = {
     expectedHttpStatusCode(415)
     expectedArrayJsonMessage("Expecting text/json or application/json body")

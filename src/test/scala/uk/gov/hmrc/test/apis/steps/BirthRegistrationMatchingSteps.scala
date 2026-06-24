@@ -20,7 +20,10 @@ import uk.gov.hmrc.test.apis.common.IndividualsChildBenefitsApi
 import uk.gov.hmrc.test.apis.helpers.request.CommonRequestSteps
 import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
 
-trait BirthRegistrationMatchingSteps extends IndividualsChildBenefitsApi with CommonRequestSteps with CommonResponseSteps {
+trait BirthRegistrationMatchingSteps
+    extends IndividualsChildBenefitsApi
+    with CommonRequestSteps
+    with CommonResponseSteps {
 
   def iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithAValidPayload(): Unit =
     iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithPayload("""{
