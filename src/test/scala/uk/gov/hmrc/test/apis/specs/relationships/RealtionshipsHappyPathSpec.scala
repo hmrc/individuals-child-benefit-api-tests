@@ -14,48 +14,49 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.specs
+package uk.gov.hmrc.test.apis.specs.relationships
 
-import uk.gov.hmrc.test.apis.helpers.*
-import uk.gov.hmrc.test.apis.steps.apis.RelationshipsSteps
+import uk.gov.hmrc.test.apis.specs.BaseSpec
+import uk.gov.hmrc.test.apis.steps.RelationshipsSteps
 
-class RealtionshipsHappyPathSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with RelationshipsSteps {}
+class RealtionshipsHappyPathSpec extends BaseSpec with RelationshipsSteps {
 
   Feature("Individuals Child Benefits API - Get Relationship Details") {
 
     Scenario("Calling the Individual Benefits API relationship endpoint with a valid id") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the get relationship details endpoint with an id of AB654321")
-      steps.iMakeARequestToTheRelationshipsEndpointWithAnIdOf("AB654321")
+      iMakeARequestToTheRelationshipsEndpointWithAnIdOf("AB654321")
 
       Then("I get a successful response")
-      steps.iGetASuccessfulResponse()
+      expectedHttpStatusCode(200)
     }
 
     Scenario("Calling the Individual Benefits API relationship endpoint with an invalid id") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the get relationship details endpoint with an id of BA000002D")
-      steps.iMakeARequestToTheRelationshipsEndpointWithAnIdOf("BA000002D")
+      iMakeARequestToTheRelationshipsEndpointWithAnIdOf("BA000002D")
 
       Then("I get a bad request response due to an invalid Id number")
-      steps.iGetAMatchingResourceNotFoundResponse()
+      expectedHttpStatusCode(404)
+      expectedArrayJsonErrorCode("NOT_FOUND_IDENTIFIER")
+      expectedArrayJsonMessage("The remote endpoint has indicated that the identifier provided cannot be found.")
     }
 
   }

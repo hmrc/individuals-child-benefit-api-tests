@@ -14,31 +14,30 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.specs
+package uk.gov.hmrc.test.apis.specs.birthregistrationmatching
 
-import uk.gov.hmrc.test.apis.helpers.*
-import uk.gov.hmrc.test.apis.steps.apis.BirthRegistrationMatchingSteps
+import uk.gov.hmrc.test.apis.steps.BirthRegistrationMatchingSteps
+import uk.gov.hmrc.test.apis.specs.BaseSpec
 
-class BirthRegistrationMatchingHappyPathSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with BirthRegistrationMatchingSteps {}
+class BirthRegistrationMatchingHappyPathSpec extends BaseSpec with BirthRegistrationMatchingSteps {
 
   Feature("Create Child Benefit Claim Endpoint - Happy Path Scenarios") {
 
     Scenario("Calling the Individual Benefits API birth registration endpoint with a valid payload works") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the individual child benefits birth registration endpoint with a valid payload")
-      steps.iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithAValidPayload()
+      iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithAValidPayload()
 
       Then("I get a successful response")
-      steps.iGetASuccessfulResponse()
+      expectedHttpStatusCode(200)
     }
   }
 }

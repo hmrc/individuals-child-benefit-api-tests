@@ -14,55 +14,49 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.specs
+package uk.gov.hmrc.test.apis.specs.individualdetails
 
-import uk.gov.hmrc.test.apis.helpers.*
-import uk.gov.hmrc.test.apis.steps.apis.IndividualDetailsSteps
+import uk.gov.hmrc.test.apis.steps.IndividualDetailsSteps
+import uk.gov.hmrc.test.apis.specs.BaseSpec
 
-class IndividualDetailsRequestHeadersSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper
-    with AuthTokenHelper
-    with AuthHelper
-    with ContentTypeHelper
-    with IndividualDetailsSteps {}
-
+class IndividualDetailsRequestHeadersSpec extends BaseSpec with IndividualDetailsSteps {
   Feature("Create Child Benefit Get Individuals Details Endpoint - Request Header Scenarios") {
     Scenario(
       "Calling the Individual Benefits API birth registration endpoint with an invalid accept header returns a 406 accept header invalid response"
     ) {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have an incorrect accept header version")
-      steps.withInvalidAcceptHeader()
+      withInvalidAcceptHeader()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the post child benefits claim endpoint with a valid payload")
-      steps.iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
+      iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
 
       Then("I get an unacceptable response due to an invalid accept header")
-      steps.iGetANotAcceptableResponseDueToAnInvalidAcceptHeader()
+      iGetAnAcceptHeaderInvalidResponse()
     }
 
     Scenario(
       "Calling the Individual Benefits API birth registration endpoint with no accept header returns a 406 accept header invalid response"
     ) {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have no accept header")
-      steps.withNoAcceptHeader()
+      withNoAcceptHeader()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the post child benefits claim endpoint with a valid payload")
-      steps.iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
+      iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
 
       Then("I get an unacceptable response due to an invalid accept header")
-      steps.iGetANotAcceptableResponseDueToAnInvalidAcceptHeader()
+      iGetAnAcceptHeaderInvalidResponse()
     }
   }
 }

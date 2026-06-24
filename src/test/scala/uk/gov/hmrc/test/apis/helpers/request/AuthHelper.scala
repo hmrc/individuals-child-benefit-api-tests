@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.helpers.request
 
 import play.api.libs.json.{JsArray, JsNumber, JsString, Json}
 import play.api.libs.ws.DefaultBodyWritables.writeableOf_String
@@ -24,7 +24,7 @@ import uk.gov.hmrc.apitestrunner.http.HttpClient
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
-trait AuthHelper extends HttpClient {
+protected trait AuthHelper extends HttpClient {
 
   def authenticateAndExtractBearer: String =
     callAuthenticate.header("Authorization").getOrElse("Unable to get Bearer token")

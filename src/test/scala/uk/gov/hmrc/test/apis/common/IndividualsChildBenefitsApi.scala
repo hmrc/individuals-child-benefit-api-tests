@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis
+package uk.gov.hmrc.test.apis.common
 
-import uk.gov.hmrc.test.apis.common.CommonApiSteps
 import io.restassured.RestAssured.`given`;
-import uk.gov.hmrc.test.api.conf.TestConfiguration.*
-import org.hamcrest.CoreMatchers.*;
+import uk.gov.hmrc.test.apis.conf.TestConfiguration.*
+import uk.gov.hmrc.test.apis.helpers.request.RequestHelper
+import uk.gov.hmrc.test.apis.helpers.response.ResponseHelper
 
-trait IndividualsChildBenefitsApi extends CommonApiSteps {
+trait IndividualsChildBenefitsApi extends RequestHelper with ResponseHelper {
 
   def iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload(payload: String): Unit =
     response(
@@ -73,10 +73,10 @@ trait IndividualsChildBenefitsApi extends CommonApiSteps {
     )
   }
 
-  def expectedIndividualsChildBenefitJsonErrorCode(expectedCode: String) =
-    response().body("errors.code", hasItem(expectedCode));
+  // def expectedIndividualsChildBenefitJsonErrorCode(expectedCode: String) =
+  //   response().body("errors.code", hasItem(expectedCode));
 
-  def expectedIndividualsChildBenefitJsonReason(expectedReason: String) =
-    response().body("errors.message", hasItem(expectedReason));
+  // def expectedIndividualsChildBenefitJsonReason(expectedReason: String) =
+  //   response().body("errors.message", hasItem(expectedReason));
 
 }

@@ -14,48 +14,48 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.specs
+package uk.gov.hmrc.test.apis.specs.createclaim
 
-import uk.gov.hmrc.test.apis.helpers.*
-import uk.gov.hmrc.test.apis.steps.apis.IndividualsChildBenefitApiSteps
+import uk.gov.hmrc.test.apis.steps.CreateClaimsSteps
+import uk.gov.hmrc.test.apis.specs.BaseSpec
 
-class CreateClaimHappyPathSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with IndividualsChildBenefitApiSteps {}
+class CreateClaimHappyPathSpec extends BaseSpec with CreateClaimsSteps {
 
   Feature("Create Child Benefit Claim Endpoint - Happy Path Scenarios") {
 
     Scenario("Calling the Individual Benefits API claim endpoint with a valid payload works") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the post child benefits claim endpoint with a valid payload")
-      steps.iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload()
+      iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload()
 
       Then("I get a service temporarily unavailable response")
-      steps.iGetASuccessfulCreatedResponse()
+      expectedHttpStatusCode(201)
     }
 
     Scenario("Calling the Individual Benefits API claim endpoint with an invalid payload returns 400 bad request") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the post child benefits claim endpoint with an invalid payload")
-      steps.iMakeARequestToThePostChildBenefitsClaimEndpointWithAnInvalidPayload()
+      iMakeARequestToThePostChildBenefitsClaimEndpointWithAnInvalidPayload()
 
       Then("I get a bad request response due to submission has not passed validation")
-      steps.iGetAnInvalidPayloadResponse()
+      expectedHttpStatusCode(400)
+      expectedArrayJsonErrorCode("INVALID_PAYLOAD")
     }
 
   }

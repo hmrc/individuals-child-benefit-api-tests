@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.helpers.request
 
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.specification.RequestSpecification
-import io.restassured.authentication.AuthenticationScheme
 import io.restassured.http.ContentType
 
 class HmrcRequestSpecBuilder {

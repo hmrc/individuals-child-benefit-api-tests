@@ -1,6 +1,6 @@
   #!/bin/bash -e
 ENV=${1:-local}
-SPECS=${2:-"uk.gov.hmrc.test.api.specs.*"}
+SPECS=${2:-"uk.gov.hmrc.test.apis.specs.*"}
 
 # Scalafmt checks have been separated from the test command to avoid OutOfMemoryError in Jenkins
 sbt scalafmtCheckAll scalafmtSbtCheck

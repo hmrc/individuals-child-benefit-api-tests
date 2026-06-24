@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.steps.apis
+package uk.gov.hmrc.test.apis.steps
 
-import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
-import uk.gov.hmrc.test.apis.helpers.ContentTypeHelper
+import uk.gov.hmrc.test.apis.common.IndividualsChildBenefitsApi
+import uk.gov.hmrc.test.apis.helpers.request.CommonRequestSteps
+import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
 
-trait IndividualDetailsSteps extends IndividualsChildBenefitsApi with ContentTypeHelper {
+trait IndividualDetailsSteps extends IndividualsChildBenefitsApi with CommonRequestSteps with CommonResponseSteps {
 
   def iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf(idValue: String, resolveMerge: String): Unit =
     callGetIndividualDetails(idValue, resolveMerge)

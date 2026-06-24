@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.helpers.request
 
-trait AuthTokenHelper {
-  self: RequestHelper & AuthHelper =>
+trait AuthenticationHelper extends AuthHelper {
+  self: RequestHelper =>
 
   def authenticate(): HmrcRequestSpecBuilder =
     builder.setAuth(authenticateAndExtractBearer)

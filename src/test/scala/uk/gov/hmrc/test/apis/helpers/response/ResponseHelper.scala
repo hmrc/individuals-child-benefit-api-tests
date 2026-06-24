@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.oauth
+package uk.gov.hmrc.test.apis.helpers.response
 
-import uk.gov.hmrc.test.api.conf.TestConfiguration
+import io.restassured.response.ValidatableResponse
+import io.restassured.http.ContentType
+import org.hamcrest.Matchers.*
+import io.restassured.http.ContentType.JSON
+import java.util.Collections.singletonList
 
-class TotpHelper {
+trait ResponseHelper {
+  private var storedResponse: Option[ValidatableResponse] = None
 
-  // TODO - needs to be static
-  private var totpCode: Option[String] = None
+  def response(response: ValidatableResponse): Unit =
+    this.storedResponse = Some(response)
 
-  private def generateNextTotpCode(): String = {
-    totpCode = Some(NextTotpGenerator.getNextTotpCode(TestConfiguration.totpSecret));
-    totpCode.get
-  }
-
-  def getTotpCode(): String = {
-    if (totpCode.isEmpty)
-      totpCode = Some(generateNextTotpCode())
-
-    totpCode.get
-  }
+  def response(): ValidatableResponse =
+    storedResponse.get
 }

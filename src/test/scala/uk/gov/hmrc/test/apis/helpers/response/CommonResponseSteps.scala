@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.common
+package uk.gov.hmrc.test.apis.helpers.response
 
 import io.restassured.response.ValidatableResponse;
 import io.restassured.http.ContentType
@@ -23,14 +23,7 @@ import io.restassured.http.ContentType.JSON;
 import java.util.Collections.singletonList;
 
 trait CommonResponseSteps {
-
-  private var storedResponse: Option[ValidatableResponse] = None
-
-  def response(response: ValidatableResponse): Unit =
-    this.storedResponse = Some(response)
-
-  def response(): ValidatableResponse =
-    storedResponse.get
+  self: ResponseHelper =>
 
   def expectedHttpStatusCode(expectedStatus: Int): Unit =
     response().statusCode(equalTo(expectedStatus))
@@ -70,4 +63,10 @@ trait CommonResponseSteps {
     expectedHttpStatusCode(400)
     expectedArrayJsonErrorCode("INVALID_PAYLOAD")
   }
+  
+  def iGetAnUnsupportedMediaTypeResponse(): Unit = {
+    expectedHttpStatusCode(415)
+    expectedArrayJsonMessage("Expecting text/json or application/json body")
+  }
+
 }

@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.helpers.request
 
-trait AcceptHeaderHelper {
+trait CommonRequestSteps extends AcceptHeaderHelper with AuthenticationHelper with ContentTypeHelper {
   self: RequestHelper =>
-
-  def withValidAcceptHeaderVersion(): HmrcRequestSpecBuilder =
-    builder.setAccept("application/vnd.hmrc.1.0+json")
-
-  def withIncorrectAcceptHeaderVersion(): HmrcRequestSpecBuilder =
-    builder.setAccept("application/vnd.hmrc.99.0+json")
-//
-  def withInvalidAcceptHeader(): HmrcRequestSpecBuilder          =
-    builder.setAccept("application/vnd.xyz.1.0+json")
-//
-  def withNoAcceptHeader(): HmrcRequestSpecBuilder               =
-    builder.setNoAccept()
 }

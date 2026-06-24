@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.models
+package uk.gov.hmrc.test.apis.common
 
 import play.api.libs.json.{Json, OFormat}
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.conf
+package uk.gov.hmrc.test.apis.conf
 
 import com.typesafe.config.{Config, ConfigFactory}
 

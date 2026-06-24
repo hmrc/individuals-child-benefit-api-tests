@@ -14,52 +14,47 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.specs
+package uk.gov.hmrc.test.apis.specs.individualdetails
 
-import uk.gov.hmrc.test.apis.helpers.*
-import uk.gov.hmrc.test.apis.steps.apis.IndividualDetailsSteps
+import uk.gov.hmrc.test.apis.steps.IndividualDetailsSteps
+import uk.gov.hmrc.test.apis.specs.BaseSpec
 
-class IndividualDetailsHappyPathSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper
-    with AuthTokenHelper
-    with AuthHelper
-    with ContentTypeHelper
-    with IndividualDetailsSteps {}
+class IndividualDetailsHappyPathSpec extends BaseSpec with IndividualDetailsSteps {
 
   Feature("Create Child Benefit Claim Endpoint - Happy Path Scenarios") {
 
     Scenario("Calling the Individual Benefits API details endpoint with a valid id and resolve merge of Y") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the get details endpoint with an id and resolve merge values")
-      steps.iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
+      iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
 
       Then("I get a successful response")
-      steps.iGetASuccessfulResponse()
+      expectedHttpStatusCode(200)
     }
 
     Scenario("Calling the Individual Benefits API details endpoint with a valid id and resolve merge of N") {
       Given("I have a valid bearer token for my privileged application")
-      steps.authenticate()
+      authenticate()
 
       And("I have a valid accept header")
-      steps.withValidAcceptHeaderVersion()
+      withValidAcceptHeaderVersion()
 
       And("I have a valid JSON content type header")
-      steps.withJsonContentTypeHeader()
+      withJsonContentTypeHeader()
 
       When("I make a request to the get details endpoint with an id and resolve merge values")
-      steps.iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "N")
+      iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "N")
 
       Then("I get a successful response")
-      steps.iGetASuccessfulResponse()
+      expectedHttpStatusCode(200)
     }
   }
 }

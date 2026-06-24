@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.helpers.request
 
-import io.restassured.specification.RequestSpecification
+trait ContentTypeHelper {
+  self: RequestHelper =>
 
-trait RequestHelper {
+  def withJsonContentTypeHeader(): HmrcRequestSpecBuilder =
+    builder.withJsonContentTypeHeader()
 
-  protected var builder: HmrcRequestSpecBuilder = new HmrcRequestSpecBuilder();
+  def withInvalidJsonContentTypeHeader(): HmrcRequestSpecBuilder =
+    builder.withInvalidJsonContentTypeHeader()
 
-  def specification(): RequestSpecification =
-    return builder.build();
-
-  // @Before
-  def cleanup(): Unit =
-    builder = new HmrcRequestSpecBuilder();
+  def withNoJsonContentTypeHeader(): HmrcRequestSpecBuilder =
+    builder
 }

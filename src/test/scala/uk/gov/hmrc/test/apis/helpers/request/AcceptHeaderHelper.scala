@@ -14,26 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.helpers.request
 
-trait RequestPayloadHelper {
+trait AcceptHeaderHelper {
   self: RequestHelper =>
 
-  def iHaveAJsonPayload(jsonText: String): Unit =
-    builder.withJsonBody(jsonText)
+  def withValidAcceptHeaderVersion(): HmrcRequestSpecBuilder =
+    builder.setAccept("application/vnd.hmrc.1.0+json")
 
-  def iHaveAnXmlPayload(xmlText: String): Unit =
-    builder.withXmlBody(xmlText)
-
-  def iHaveAJsonPayloadWithNoContentTypeHeader(jsonText: String): Unit =
-    builder.withNoContentTypeHeader(jsonText)
-
-  def iHaveAXmlPayloadWithNoContentTypeHeader(xmlText: String): Unit =
-    builder.withNoContentTypeHeader(xmlText)
-
-  def iHaveNoJsonPayload(): Unit =
-    builder.withJsonBody("");
-
-  def iHaveNoXmlPayload(): Unit =
-    builder.withXmlBody("");
+  def withIncorrectAcceptHeaderVersion(): HmrcRequestSpecBuilder =
+    builder.setAccept("application/vnd.hmrc.99.0+json")
+//
+  def withInvalidAcceptHeader(): HmrcRequestSpecBuilder          =
+    builder.setAccept("application/vnd.xyz.1.0+json")
+//
+  def withNoAcceptHeader(): HmrcRequestSpecBuilder               =
+    builder.setNoAccept()
 }

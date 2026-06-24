@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.data
+package uk.gov.hmrc.test.apis.data
 
-import uk.gov.hmrc.test.api.models.*
+import uk.gov.hmrc.test.apis.common.* 
 
 object CreateClaimTestData {
   val validClaimant = Claimant(

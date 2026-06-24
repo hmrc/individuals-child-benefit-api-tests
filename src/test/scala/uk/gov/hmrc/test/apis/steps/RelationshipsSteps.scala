@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.oauth
+package uk.gov.hmrc.test.apis.steps
 
-import io.restassured.response.ValidatableResponse
+import uk.gov.hmrc.test.apis.common.IndividualsChildBenefitsApi
+import uk.gov.hmrc.test.apis.helpers.request.CommonRequestSteps
+import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
 
-object AccessTokenHolder {
+trait RelationshipsSteps extends IndividualsChildBenefitsApi with CommonRequestSteps with CommonResponseSteps {
 
-  private var accessToken: Option[String] = None
+  def iMakeARequestToTheRelationshipsEndpointWithAnIdOf(idValue: String): Unit =
+    callGetRelationshipDetails(idValue)
 
-  def bearerToken() = accessToken.get
-
-  def setToken(token: String): Unit = accessToken = Some(token)
-
-  def extractAndStoreToken(response: ValidatableResponse): Unit =
-    accessToken = Some(response.extract().path("access_token").toString())
 }
