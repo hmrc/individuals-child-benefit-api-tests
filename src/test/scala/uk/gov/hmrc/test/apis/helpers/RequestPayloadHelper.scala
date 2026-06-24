@@ -18,23 +18,22 @@ package uk.gov.hmrc.test.apis.helpers
 
 trait RequestPayloadHelper {
   self: RequestHelper =>
-  
+
   def iHaveAJsonPayload(jsonText: String): Unit =
     builder.withJsonBody(jsonText)
 
   def iHaveAnXmlPayload(xmlText: String): Unit =
     builder.withXmlBody(xmlText)
 
-  def iHaveAJsonPayloadWithNoContentTypeHeader(jsonText: String): Unit = 
+  def iHaveAJsonPayloadWithNoContentTypeHeader(jsonText: String): Unit =
     builder.withNoContentTypeHeader(jsonText)
 
   def iHaveAXmlPayloadWithNoContentTypeHeader(xmlText: String): Unit =
     builder.withNoContentTypeHeader(xmlText)
 
-  def iHaveNoJsonPayload(): Unit = 
+  def iHaveNoJsonPayload(): Unit =
     builder.withJsonBody("");
 
-  def iHaveNoXmlPayload(): Unit = {
+  def iHaveNoXmlPayload(): Unit =
     builder.withXmlBody("");
-  }
 }

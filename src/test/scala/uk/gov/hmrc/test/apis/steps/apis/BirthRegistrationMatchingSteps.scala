@@ -19,20 +19,15 @@ package uk.gov.hmrc.test.apis.steps.apis
 import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
 import uk.gov.hmrc.test.apis.helpers.ContentTypeHelper
 
-trait BirthRegistrationMatchingSteps
-    extends IndividualsChildBenefitsApi
-    with ContentTypeHelper {
-  
+trait BirthRegistrationMatchingSteps extends IndividualsChildBenefitsApi with ContentTypeHelper {
 
- def iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithAValidPayload(): Unit = {
-    iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithPayload(
-      """{
+  def iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithAValidPayload(): Unit =
+    iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithPayload("""{
       |   "birthReferenceNumber": "123456789",
       |   "firstName": "Adam Test",
       |   "lastName": "Smith",
       |   "dateOfBirth": "2010-01-01",
       |   "whereBirthRegistered": "england"
       | }""".stripMargin)
-    }
 
 }

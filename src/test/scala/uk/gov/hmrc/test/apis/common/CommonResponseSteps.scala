@@ -26,31 +26,29 @@ trait CommonResponseSteps {
 
   private var storedResponse: Option[ValidatableResponse] = None
 
-  def response(response: ValidatableResponse): Unit = {
+  def response(response: ValidatableResponse): Unit =
     this.storedResponse = Some(response)
-  }
 
-  def response(): ValidatableResponse = {
+  def response(): ValidatableResponse =
     storedResponse.get
-  }
 
-  def expectedHttpStatusCode(expectedStatus: Int): Unit = {
+  def expectedHttpStatusCode(expectedStatus: Int): Unit =
     response().statusCode(equalTo(expectedStatus))
-  }
 
-  def expectedContentType(expectedContentType: ContentType): Unit = {
+  def expectedContentType(expectedContentType: ContentType): Unit =
     response().contentType(equalTo(expectedContentType.getContentTypeStrings().apply(0)))
-  }
 
   def expectedJsonBodyField[T](field: String, expectation: T): Unit = {
     expectedContentType(JSON)
     response().body(field, is(expectation))
   }
 
-  def expectedJsonErrorCode(expectedCode: String): Unit = expectedJsonBodyField("code", expectedCode)
-  def expectedJsonMessage(expectedMessage: String): Unit = expectedJsonBodyField("message", expectedMessage)
-  def expectedArrayJsonErrorCode(expectedCode: String): Unit = expectedJsonBodyField("errors.code", singletonList(expectedCode))
-  def expectedArrayJsonMessage(expectedMessage: String): Unit = expectedJsonBodyField("errors.message", singletonList(expectedMessage))
+  def expectedJsonErrorCode(expectedCode: String): Unit       = expectedJsonBodyField("code", expectedCode)
+  def expectedJsonMessage(expectedMessage: String): Unit      = expectedJsonBodyField("message", expectedMessage)
+  def expectedArrayJsonErrorCode(expectedCode: String): Unit  =
+    expectedJsonBodyField("errors.code", singletonList(expectedCode))
+  def expectedArrayJsonMessage(expectedMessage: String): Unit =
+    expectedJsonBodyField("errors.message", singletonList(expectedMessage))
 
   def iGetNotFoundResponse(expectedErrorCode: String): Unit = {
     expectedJsonErrorCode(expectedErrorCode);
@@ -62,12 +60,12 @@ trait CommonResponseSteps {
     expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID");
     expectedArrayJsonMessage("The accept header is missing or invalid");
   }
-    
+
   def iGetAnInvalidRequestPayloadResponse(): Unit = {
     expectedHttpStatusCode(400)
     expectedJsonErrorCode("INVALID_REQUEST_PAYLOAD")
   }
-    
+
   def iGetAnInvalidPayloadResponse(): Unit = {
     expectedHttpStatusCode(400)
     expectedArrayJsonErrorCode("INVALID_PAYLOAD")

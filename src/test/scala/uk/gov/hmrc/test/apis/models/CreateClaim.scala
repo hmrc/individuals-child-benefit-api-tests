@@ -49,13 +49,21 @@ case class BuildingSocietyDetails(buildingSociety: Option[String], rollNumber: O
 object BuildingSocietyDetails {
   given format: OFormat[BuildingSocietyDetails] = Json.format[BuildingSocietyDetails]
 }
-case class AccountHolder(accountHolderType: Option[String] = None, forenames: Option[String] = None, surname: Option[String] = None)
+case class AccountHolder(
+  accountHolderType: Option[String] = None,
+  forenames: Option[String] = None,
+  surname: Option[String] = None
+)
 
 object AccountHolder {
   implicit val format: OFormat[AccountHolder] = Json.format[AccountHolder]
 }
 
-case class PaymentDetails(accountHolder: Option[AccountHolder], bankAccount: Option[BankAccount], buildingSocietyDetails: Option[BuildingSocietyDetails])
+case class PaymentDetails(
+  accountHolder: Option[AccountHolder],
+  bankAccount: Option[BankAccount],
+  buildingSocietyDetails: Option[BuildingSocietyDetails]
+)
 
 object PaymentDetails {
   given format: OFormat[PaymentDetails] = Json.format[PaymentDetails]

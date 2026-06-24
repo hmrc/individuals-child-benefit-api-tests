@@ -23,25 +23,31 @@ import org.hamcrest.CoreMatchers.*;
 
 trait IndividualsChildBenefitsApi extends CommonApiSteps {
 
-  def iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload(payload: String): Unit = {
+  def iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload(payload: String): Unit =
     response(
       `given`()
         .spec(specification())
-        .body(payload).log().all()
+        .body(payload)
+        .log()
+        .all()
         .post(s"$baseApiUrl/child-benefit/claim")
-        .`then`().log().all()
+        .`then`()
+        .log()
+        .all()
     )
-  }
 
-  def iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithPayload(payload: String): Unit = {
+  def iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithPayload(payload: String): Unit =
     response(
       `given`()
         .spec(specification())
-        .body(payload).log().all()
+        .body(payload)
+        .log()
+        .all()
         .post(s"$baseApiUrl/birth-registration-matching/match")
-        .`then`().log().all()
+        .`then`()
+        .log()
+        .all()
     )
-  }
 
   def callGetRelationshipDetails(idValue: String): Unit = {
     println(s"Calling $baseApiUrl/individuals/relationship/$idValue")
@@ -49,7 +55,9 @@ trait IndividualsChildBenefitsApi extends CommonApiSteps {
       `given`()
         .spec(specification())
         .get(s"$baseApiUrl/individuals/relationship/$idValue")
-        .`then`().log().all()
+        .`then`()
+        .log()
+        .all()
     )
   }
 
@@ -59,16 +67,16 @@ trait IndividualsChildBenefitsApi extends CommonApiSteps {
       `given`()
         .spec(specification())
         .get(s"$baseApiUrl/individuals/details/$idValue/$resolveMerge")
-        .`then`().log().all()
+        .`then`()
+        .log()
+        .all()
     )
   }
 
-  def expectedIndividualsChildBenefitJsonErrorCode(expectedCode: String) = {
-    response().body("errors.code", hasItem((expectedCode)));
-  }
+  def expectedIndividualsChildBenefitJsonErrorCode(expectedCode: String) =
+    response().body("errors.code", hasItem(expectedCode));
 
-  def expectedIndividualsChildBenefitJsonReason(expectedReason: String) = {
-    response().body("errors.message", hasItem((expectedReason)));
-  }
+  def expectedIndividualsChildBenefitJsonReason(expectedReason: String) =
+    response().body("errors.message", hasItem(expectedReason));
 
 }

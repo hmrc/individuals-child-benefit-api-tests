@@ -20,10 +20,16 @@ import uk.gov.hmrc.test.apis.steps.apis.IndividualsChildBenefitApiSteps
 import uk.gov.hmrc.test.apis.helpers.*
 
 class CreateClaimRequestHeadersSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with ContentTypeHelper with IndividualsChildBenefitApiSteps {}
+  val steps = new AcceptHeaderHelper
+    with AuthTokenHelper
+    with AuthHelper
+    with ContentTypeHelper
+    with IndividualsChildBenefitApiSteps {}
 
   Feature("Example of using the Individuals Child Benefit API - Accept Header Scenarios") {
-    Scenario("Calling the Create Child Benefit Claim endpoint with an invalid accept header returns a 406 accept header invalid response") {
+    Scenario(
+      "Calling the Create Child Benefit Claim endpoint with an invalid accept header returns a 406 accept header invalid response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -40,7 +46,9 @@ class CreateClaimRequestHeadersSpec extends BaseSpec {
       steps.iGetANotAcceptableResponseDueToAnInvalidAcceptHeader()
     }
 
-    Scenario("Calling the Create Child Benefit Claim endpoint with no accept header returns a 406 accept header invalid response") {
+    Scenario(
+      "Calling the Create Child Benefit Claim endpoint with no accept header returns a 406 accept header invalid response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -59,7 +67,9 @@ class CreateClaimRequestHeadersSpec extends BaseSpec {
   }
 
   Feature("Example of using the Individuals Child Benefit API - Content Type Scenarios") {
-    Scenario("Calling the Create Child Benefit Claim endpoint with an invalid content type header returns a 415 unsupported media type response") {
+    Scenario(
+      "Calling the Create Child Benefit Claim endpoint with an invalid content type header returns a 415 unsupported media type response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -76,7 +86,9 @@ class CreateClaimRequestHeadersSpec extends BaseSpec {
       steps.iGetAnUnsupportedMediaTypeResponse()
     }
 
-     Scenario("Calling the Create Child Benefit Claim endpoint with no content type header returns a 415 unsupported media type response") {
+    Scenario(
+      "Calling the Create Child Benefit Claim endpoint with no content type header returns a 415 unsupported media type response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 

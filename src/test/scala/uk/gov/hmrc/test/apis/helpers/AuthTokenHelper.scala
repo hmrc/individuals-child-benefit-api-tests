@@ -19,6 +19,6 @@ package uk.gov.hmrc.test.apis.helpers
 trait AuthTokenHelper {
   self: RequestHelper & AuthHelper =>
 
-  def authenticate(): HmrcRequestSpecBuilder = 
+  def authenticate(): HmrcRequestSpecBuilder =
     builder.setAuth(authenticateAndExtractBearer)
 }

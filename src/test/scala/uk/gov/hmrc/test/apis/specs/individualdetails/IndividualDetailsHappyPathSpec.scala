@@ -20,13 +20,17 @@ import uk.gov.hmrc.test.apis.helpers.*
 import uk.gov.hmrc.test.apis.steps.apis.IndividualDetailsSteps
 
 class IndividualDetailsHappyPathSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with ContentTypeHelper with IndividualDetailsSteps {}
+  val steps = new AcceptHeaderHelper
+    with AuthTokenHelper
+    with AuthHelper
+    with ContentTypeHelper
+    with IndividualDetailsSteps {}
 
   Feature("Create Child Benefit Claim Endpoint - Happy Path Scenarios") {
 
     Scenario("Calling the Individual Benefits API details endpoint with a valid id and resolve merge of Y") {
       Given("I have a valid bearer token for my privileged application")
-        steps.authenticate()
+      steps.authenticate()
 
       And("I have a valid accept header")
       steps.withValidAcceptHeaderVersion()
@@ -36,14 +40,14 @@ class IndividualDetailsHappyPathSpec extends BaseSpec {
 
       When("I make a request to the get details endpoint with an id and resolve merge values")
       steps.iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "Y")
-      
+
       Then("I get a successful response")
       steps.iGetASuccessfulResponse()
     }
 
     Scenario("Calling the Individual Benefits API details endpoint with a valid id and resolve merge of N") {
       Given("I have a valid bearer token for my privileged application")
-        steps.authenticate()
+      steps.authenticate()
 
       And("I have a valid accept header")
       steps.withValidAcceptHeaderVersion()
@@ -53,7 +57,7 @@ class IndividualDetailsHappyPathSpec extends BaseSpec {
 
       When("I make a request to the get details endpoint with an id and resolve merge values")
       steps.iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf("AB123456", "N")
-      
+
       Then("I get a successful response")
       steps.iGetASuccessfulResponse()
     }

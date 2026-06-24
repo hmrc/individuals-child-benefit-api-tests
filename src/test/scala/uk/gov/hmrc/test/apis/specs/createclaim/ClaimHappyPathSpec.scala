@@ -23,10 +23,10 @@ class CreateClaimHappyPathSpec extends BaseSpec {
   val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with IndividualsChildBenefitApiSteps {}
 
   Feature("Create Child Benefit Claim Endpoint - Happy Path Scenarios") {
-    
+
     Scenario("Calling the Individual Benefits API claim endpoint with a valid payload works") {
       Given("I have a valid bearer token for my privileged application")
-        steps.authenticate()
+      steps.authenticate()
 
       And("I have a valid accept header")
       steps.withValidAcceptHeaderVersion()
@@ -43,7 +43,7 @@ class CreateClaimHappyPathSpec extends BaseSpec {
 
     Scenario("Calling the Individual Benefits API claim endpoint with an invalid payload returns 400 bad request") {
       Given("I have a valid bearer token for my privileged application")
-        steps.authenticate()
+      steps.authenticate()
 
       And("I have a valid accept header")
       steps.withValidAcceptHeaderVersion()

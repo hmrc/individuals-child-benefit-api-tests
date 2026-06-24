@@ -26,18 +26,20 @@ object CreateClaimTestData {
     hicbcOptOut = Some(false),
     hmfAbroad = Some(true)
   )
-  
+
   val partner = Partner(
     nino = Some("AB891870"),
-    surname = Some("Brown"),
+    surname = Some("Brown")
   )
 
   val child = Children(
-    name = Some(ClaimName(
-      forenames = Some("Daniel"),
-      surname = Some("Paul"),
-      middleNames = Some("Alexander")
-    )),
+    name = Some(
+      ClaimName(
+        forenames = Some("Daniel"),
+        surname = Some("Paul"),
+        middleNames = Some("Alexander")
+      )
+    ),
     crn = Some("AE808187"),
     gender = Some("UNSPECIFIED"),
     dateOfBirth = Some("29/11/2012"),
@@ -56,20 +58,23 @@ object CreateClaimTestData {
 
   val payment = Payment(
     paymentFrequency = Some("EVERY_4_WEEKS"),
-    paymentDetails = Some(PaymentDetails(
-      accountHolder = Some(accountHolder),
-      bankAccount = Some(BankAccount(
-        sortCode = Some("245533"),
-        accountNumber = Some("98015737")
-      )),
-      buildingSocietyDetails = None
-    ))
+    paymentDetails = Some(
+      PaymentDetails(
+        accountHolder = Some(accountHolder),
+        bankAccount = Some(
+          BankAccount(
+            sortCode = Some("245533"),
+            accountNumber = Some("98015737")
+          )
+        ),
+        buildingSocietyDetails = None
+      )
+    )
   )
-  
-  
+
   val validCreateClaim = CreateClaim(
     dateOfClaim = Some("19/01/2023"),
-    claimant = Some(validClaimant), 
+    claimant = Some(validClaimant),
     partner = Some(partner),
     payment = Some(payment),
     children = Some(List(child)),

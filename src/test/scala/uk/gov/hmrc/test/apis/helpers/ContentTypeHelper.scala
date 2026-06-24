@@ -22,9 +22,9 @@ trait ContentTypeHelper {
   def withJsonContentTypeHeader(): HmrcRequestSpecBuilder =
     builder.withJsonContentTypeHeader()
 
-  def withInvalidJsonContentTypeHeader(): HmrcRequestSpecBuilder = 
+  def withInvalidJsonContentTypeHeader(): HmrcRequestSpecBuilder =
     builder.withInvalidJsonContentTypeHeader()
-  
-  def withNoJsonContentTypeHeader(): HmrcRequestSpecBuilder = 
+
+  def withNoJsonContentTypeHeader(): HmrcRequestSpecBuilder =
     builder
 }

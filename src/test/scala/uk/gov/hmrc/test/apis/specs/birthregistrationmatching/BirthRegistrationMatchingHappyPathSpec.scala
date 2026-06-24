@@ -36,7 +36,7 @@ class BirthRegistrationMatchingHappyPathSpec extends BaseSpec {
 
       When("I make a request to the individual child benefits birth registration endpoint with a valid payload")
       steps.iMakeARequestToTheIndividualChildBenefitsRegistrationEndpointWithAValidPayload()
-      
+
       Then("I get a successful response")
       steps.iGetASuccessfulResponse()
     }

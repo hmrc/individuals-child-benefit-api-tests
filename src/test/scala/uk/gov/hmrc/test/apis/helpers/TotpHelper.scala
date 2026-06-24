@@ -29,7 +29,7 @@ class TotpHelper {
   }
 
   def getTotpCode(): String = {
-    if(totpCode.isEmpty)
+    if (totpCode.isEmpty)
       totpCode = Some(generateNextTotpCode())
 
     totpCode.get

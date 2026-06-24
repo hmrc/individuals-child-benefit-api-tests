@@ -22,12 +22,10 @@ trait RequestHelper {
 
   protected var builder: HmrcRequestSpecBuilder = new HmrcRequestSpecBuilder();
 
-  def specification(): RequestSpecification = {
-      return builder.build();
-  }
+  def specification(): RequestSpecification =
+    return builder.build();
 
   // @Before
-  def cleanup(): Unit = {
-      builder = new HmrcRequestSpecBuilder();
-  }
+  def cleanup(): Unit =
+    builder = new HmrcRequestSpecBuilder();
 }

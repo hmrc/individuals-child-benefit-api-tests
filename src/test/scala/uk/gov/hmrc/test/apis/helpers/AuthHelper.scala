@@ -26,9 +26,8 @@ import scala.concurrent.duration.DurationInt
 
 trait AuthHelper extends HttpClient {
 
-  def authenticateAndExtractBearer: String = {
+  def authenticateAndExtractBearer: String =
     callAuthenticate.header("Authorization").getOrElse("Unable to get Bearer token")
-  }
 
   private def callAuthenticate: StandaloneWSRequest#Response =
     Await.result(

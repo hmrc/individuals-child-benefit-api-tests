@@ -19,11 +19,9 @@ package uk.gov.hmrc.test.apis.steps.apis
 import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
 import uk.gov.hmrc.test.apis.helpers.*
 
-trait IndividualsChildBenefitApiSteps
-    extends IndividualsChildBenefitsApi
-    with ContentTypeHelper {
-  
-  def iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload(): Unit = {
+trait IndividualsChildBenefitApiSteps extends IndividualsChildBenefitsApi with ContentTypeHelper {
+
+  def iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload(): Unit =
     iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload("""{
                 |  "dateOfClaim": "19/01/2023",
                 |  "claimant": {
@@ -70,11 +68,9 @@ trait IndividualsChildBenefitApiSteps
                 |  ],
                 |  "otherEligibilityFailure": false
                 |}""".stripMargin)
-    }
 
-  def iMakeARequestToThePostChildBenefitsClaimEndpointWithAnInvalidPayload(): Unit = {
+  def iMakeARequestToThePostChildBenefitsClaimEndpointWithAnInvalidPayload(): Unit =
     iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload(
       """{"claimant":{"nino":"WK666666"}}"""
     )
-  }
 }

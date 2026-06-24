@@ -19,12 +19,9 @@ package uk.gov.hmrc.test.apis.steps.apis
 import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
 import uk.gov.hmrc.test.apis.helpers.ContentTypeHelper
 
-trait RelationshipsSteps
-    extends IndividualsChildBenefitsApi
-    with ContentTypeHelper {
-  
-  def iMakeARequestToTheRelationshipsEndpointWithAnIdOf(idValue: String): Unit = {
+trait RelationshipsSteps extends IndividualsChildBenefitsApi with ContentTypeHelper {
+
+  def iMakeARequestToTheRelationshipsEndpointWithAnIdOf(idValue: String): Unit =
     callGetRelationshipDetails(idValue)
-  }
 
 }

@@ -27,26 +27,23 @@ object NextTotpGenerator {
 
   private def isSameAsPreviousTotpCode(newTotpCode: String): Boolean = currentTotpCode.fold(false)(_ == newTotpCode)
 
-  private def safeSleep(millis: Long): Unit = {
-    try {
-        Thread.sleep(millis);
-    } catch {
-      case e: InterruptedException => {
+  private def safeSleep(millis: Long): Unit =
+    try
+      Thread.sleep(millis);
+    catch {
+      case e: InterruptedException =>
         e.printStackTrace();
         throw e;
-      }
     }
-  }
 
   @tailrec
   def getNextTotpCode(totpSecret: String): String = {
-    val newTotpCode = totpGenerator.getTotpCode((totpSecret.toUpperCase()))
+    val newTotpCode = totpGenerator.getTotpCode(totpSecret.toUpperCase())
 
-    if(! isSameAsPreviousTotpCode(newTotpCode)) {
+    if (!isSameAsPreviousTotpCode(newTotpCode)) {
       currentTotpCode = Some(newTotpCode)
       newTotpCode
-    }
-    else {
+    } else {
       safeSleep(500)
       getNextTotpCode(totpSecret)
     }

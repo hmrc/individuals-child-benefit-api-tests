@@ -21,13 +21,11 @@ import uk.gov.hmrc.test.apis.helpers.RequestHelper
 // TODO: this may be a duplicate of the same file in the steps package
 class CommonApiSteps extends RequestHelper with CommonResponseSteps {
 
-  def iGetASuccessfulResponse(): Unit = {
+  def iGetASuccessfulResponse(): Unit =
     expectedHttpStatusCode(200)
-  }
 
-  def iGetASuccessfulCreatedResponse(): Unit = {
+  def iGetASuccessfulCreatedResponse(): Unit =
     expectedHttpStatusCode(201)
-  }
 
   def iGetAServiceTemporarilyUnavailableResponse(): Unit = {
     expectedHttpStatusCode(503)
@@ -41,19 +39,16 @@ class CommonApiSteps extends RequestHelper with CommonResponseSteps {
     expectedArrayJsonMessage("The remote endpoint has indicated that the identifier provided cannot be found.")
   }
 
-  def iGetANotAcceptableResponseDueToAnInvalidAcceptHeader(): Unit = {
+  def iGetANotAcceptableResponseDueToAnInvalidAcceptHeader(): Unit =
     iGetAnAcceptHeaderInvalidResponse()
-  }
 
   def iGetABadRequestResponseDueToAnInvalidRequestPayload(): Unit = {
     iGetAnInvalidRequestPayloadResponse()
     expectedJsonMessage("JSON body is invalid against expected format")
   }
 
-
-  def iGetAnUnacceptableResponseDueToAMissingAcceptHeader(): Unit = {
+  def iGetAnUnacceptableResponseDueToAMissingAcceptHeader(): Unit =
     iGetAnAcceptHeaderInvalidResponse()
-  }
 
   def iGetAnUnsupportedMediaTypeResponse(): Unit = {
     expectedHttpStatusCode(415)

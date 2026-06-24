@@ -20,7 +20,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 
 object TestConfiguration {
   val config: Config        = ConfigFactory.load()
-  val envName: String           = config.getString("environment")
+  val envName: String       = config.getString("environment")
   val defaultConfig: Config = config.getConfig("local")
   val envConfig: Config     = config.getConfig(envName).withFallback(defaultConfig)
 
@@ -38,20 +38,16 @@ object TestConfiguration {
 
   def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
 
-  lazy val baseApiUrl: String = {
+  lazy val baseApiUrl: String =
     envConfig.getString("baseApiUrl")
-  }
 
-  lazy val clientId: String = {
+  lazy val clientId: String =
     envConfig.getString("privilegedApplicationClientId")
-  }
 
-  lazy val clientSecret: String = {
+  lazy val clientSecret: String =
     envConfig.getString("privilegedApplicationClientSecret")
-  }
 
-  lazy val totpSecret: String = {
+  lazy val totpSecret: String =
     envConfig.getString("privilegedApplicationTotpSecret")
-  }
 
 }

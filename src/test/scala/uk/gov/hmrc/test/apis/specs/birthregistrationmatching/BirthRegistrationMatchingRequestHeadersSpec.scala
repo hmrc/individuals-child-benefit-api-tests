@@ -19,12 +19,17 @@ package uk.gov.hmrc.test.api.specs
 import uk.gov.hmrc.test.apis.helpers.*
 import uk.gov.hmrc.test.apis.steps.apis.BirthRegistrationMatchingSteps
 
-
 class BirthRegistrationMatchingRequestHeadersSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with ContentTypeHelper with BirthRegistrationMatchingSteps {}
+  val steps = new AcceptHeaderHelper
+    with AuthTokenHelper
+    with AuthHelper
+    with ContentTypeHelper
+    with BirthRegistrationMatchingSteps {}
 
   Feature("Create Child Benefit Birth Registration Endpoint - Accept Header Scenarios") {
-    Scenario("Calling the Individual Benefits API birth registration endpoint with an invalid accept header returns a 406 accept header invalid response") {
+    Scenario(
+      "Calling the Individual Benefits API birth registration endpoint with an invalid accept header returns a 406 accept header invalid response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -41,7 +46,9 @@ class BirthRegistrationMatchingRequestHeadersSpec extends BaseSpec {
       steps.iGetANotAcceptableResponseDueToAnInvalidAcceptHeader()
     }
 
-    Scenario("Calling the Individual Benefits API birth registration endpoint with no accept header returns a 406 accept header invalid response") {
+    Scenario(
+      "Calling the Individual Benefits API birth registration endpoint with no accept header returns a 406 accept header invalid response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -60,7 +67,9 @@ class BirthRegistrationMatchingRequestHeadersSpec extends BaseSpec {
   }
 
   Feature("Create Child Benefit Birth Registration Endpoint - Content Type Header Scenarios") {
-    Scenario("Calling the Individual Benefits API birth registration endpoint with an invalid content type header returns a 415 unsupported media type response") {
+    Scenario(
+      "Calling the Individual Benefits API birth registration endpoint with an invalid content type header returns a 415 unsupported media type response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -77,7 +86,9 @@ class BirthRegistrationMatchingRequestHeadersSpec extends BaseSpec {
       steps.iGetAnUnsupportedMediaTypeResponse()
     }
 
-    Scenario("Calling the Individual Benefits API birth registration endpoint with no content type header returns a 415 unsupported media type response") {
+    Scenario(
+      "Calling the Individual Benefits API birth registration endpoint with no content type header returns a 415 unsupported media type response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 

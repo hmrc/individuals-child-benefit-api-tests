@@ -19,12 +19,9 @@ package uk.gov.hmrc.test.apis.steps.apis
 import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
 import uk.gov.hmrc.test.apis.helpers.ContentTypeHelper
 
-trait IndividualDetailsSteps
-    extends IndividualsChildBenefitsApi
-    with ContentTypeHelper {
-  
-  def iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf(idValue: String, resolveMerge: String): Unit = {
+trait IndividualDetailsSteps extends IndividualsChildBenefitsApi with ContentTypeHelper {
+
+  def iMakeARequestToTheGetDetailsEndpointWithAnIdAndResolveMergeValueOf(idValue: String, resolveMerge: String): Unit =
     callGetIndividualDetails(idValue, resolveMerge)
-  }
 
 }

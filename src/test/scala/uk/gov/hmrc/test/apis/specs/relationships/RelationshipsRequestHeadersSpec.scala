@@ -19,12 +19,17 @@ package uk.gov.hmrc.test.api.specs
 import uk.gov.hmrc.test.apis.helpers.*
 import uk.gov.hmrc.test.apis.steps.apis.RelationshipsSteps
 
-
 class RelationshipsRequestHeadersSpec extends BaseSpec {
-  val steps = new AcceptHeaderHelper with AuthTokenHelper with AuthHelper with ContentTypeHelper with RelationshipsSteps {}
+  val steps = new AcceptHeaderHelper
+    with AuthTokenHelper
+    with AuthHelper
+    with ContentTypeHelper
+    with RelationshipsSteps {}
 
   Feature("Create Child Benefit Get Relationship Details Endpoint - Request Header Scenarios") {
-    Scenario("Calling the Individual Benefits API birth registration endpoint with an invalid accept header returns a 406 accept header invalid response") {
+    Scenario(
+      "Calling the Individual Benefits API birth registration endpoint with an invalid accept header returns a 406 accept header invalid response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
@@ -41,7 +46,9 @@ class RelationshipsRequestHeadersSpec extends BaseSpec {
       steps.iGetANotAcceptableResponseDueToAnInvalidAcceptHeader()
     }
 
-    Scenario("Calling the Individual Benefits API birth registration endpoint with no accept header returns a 406 accept header invalid response") {
+    Scenario(
+      "Calling the Individual Benefits API birth registration endpoint with no accept header returns a 406 accept header invalid response"
+    ) {
       Given("I have a valid bearer token for my privileged application")
       steps.authenticate()
 
