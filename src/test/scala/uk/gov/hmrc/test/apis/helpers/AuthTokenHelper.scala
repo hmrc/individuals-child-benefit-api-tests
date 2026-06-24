@@ -16,10 +16,9 @@
 
 package uk.gov.hmrc.test.apis.helpers
 
-import io.restassured.RestAssured.oauth2;
+trait AuthTokenHelper {
+  self: RequestHelper & AuthHelper =>
 
-trait AuthTokenHelpers {
-  self: RequestHelper =>
-
-  def withBearerTokenOf(bearerToken: String): HmrcRequestSpecBuilder = builder.setAuth(oauth2(bearerToken))
+  def authenticate(): HmrcRequestSpecBuilder = 
+    builder.setAuth(authenticateAndExtractBearer)
 }

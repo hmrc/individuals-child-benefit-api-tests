@@ -20,10 +20,9 @@ import uk.gov.hmrc.test.apis.common.CommonApiSteps
 import io.restassured.RestAssured.`given`;
 import uk.gov.hmrc.test.api.conf.TestConfiguration.*
 import org.hamcrest.CoreMatchers.*;
-import uk.gov.hmrc.test.apis.helpers.AuthTokenHelpers
 
 trait IndividualsChildBenefitsApi extends CommonApiSteps {
-  
+
   def iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload(payload: String): Unit = {
     response(
       `given`()
@@ -45,6 +44,7 @@ trait IndividualsChildBenefitsApi extends CommonApiSteps {
   }
 
   def callGetRelationshipDetails(idValue: String): Unit = {
+    println(s"Calling $baseApiUrl/individuals/relationship/$idValue")
     response(
       `given`()
         .spec(specification())
@@ -54,6 +54,7 @@ trait IndividualsChildBenefitsApi extends CommonApiSteps {
   }
 
   def callGetIndividualDetails(idValue: String, resolveMerge: String): Unit = {
+    println(s"Calling $baseApiUrl/individuals/details/$idValue/$resolveMerge")
     response(
       `given`()
         .spec(specification())
@@ -69,4 +70,5 @@ trait IndividualsChildBenefitsApi extends CommonApiSteps {
   def expectedIndividualsChildBenefitJsonReason(expectedReason: String) = {
     response().body("errors.message", hasItem((expectedReason)));
   }
+
 }

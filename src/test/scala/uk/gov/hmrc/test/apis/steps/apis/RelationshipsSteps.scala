@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.helpers
+package uk.gov.hmrc.test.apis.steps.apis
 
-trait ContentTypeHelper {
-  self: RequestHelper =>
+import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
+import uk.gov.hmrc.test.apis.helpers.ContentTypeHelper
 
-  def withJsonContentTypeHeader(): HmrcRequestSpecBuilder =
-    builder.withJsonContentTypeHeader()
-
-  def withInvalidJsonContentTypeHeader(): HmrcRequestSpecBuilder = 
-    builder.withInvalidJsonContentTypeHeader()
+trait RelationshipsSteps
+    extends IndividualsChildBenefitsApi
+    with ContentTypeHelper {
   
-  def withNoJsonContentTypeHeader(): HmrcRequestSpecBuilder = 
-    builder
+  def iMakeARequestToTheRelationshipsEndpointWithAnIdOf(idValue: String): Unit = {
+    callGetRelationshipDetails(idValue)
+  }
+
 }

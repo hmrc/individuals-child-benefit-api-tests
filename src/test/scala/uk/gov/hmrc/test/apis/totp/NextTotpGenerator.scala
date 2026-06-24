@@ -33,6 +33,7 @@ object NextTotpGenerator {
     } catch {
       case e: InterruptedException => {
         e.printStackTrace();
+        throw e;
       }
     }
   }

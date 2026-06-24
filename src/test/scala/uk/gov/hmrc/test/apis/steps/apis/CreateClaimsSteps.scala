@@ -17,10 +17,11 @@
 package uk.gov.hmrc.test.apis.steps.apis
 
 import uk.gov.hmrc.test.apis.IndividualsChildBenefitsApi
-import uk.gov.hmrc.test.apis.helpers.RequestPayloadHelper
-import uk.gov.hmrc.test.apis.helpers.AuthTokenHelpers
+import uk.gov.hmrc.test.apis.helpers.*
 
-trait IndividualsChildBenefitApiSteps extends IndividualsChildBenefitsApi with RequestPayloadHelper with AuthTokenHelpers {
+trait IndividualsChildBenefitApiSteps
+    extends IndividualsChildBenefitsApi
+    with ContentTypeHelper {
   
   def iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload(): Unit = {
     iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload("""{
@@ -71,25 +72,9 @@ trait IndividualsChildBenefitApiSteps extends IndividualsChildBenefitsApi with R
                 |}""".stripMargin)
     }
 
-//  @When("^I make a request to the post child benefits claim endpoint with an invalid payload$")
-  def iMakeARequestToThePostChildBenefitsClaimEndpointWithAInvalidPayload(): Unit = {
+  def iMakeARequestToThePostChildBenefitsClaimEndpointWithAnInvalidPayload(): Unit = {
     iMakeARequestToThePostChildBenefitsClaimEndpointWithPayload(
-      """{"claimant":{"nino":"1234"}}"""
+      """{"claimant":{"nino":"WK666666"}}"""
     )
   }
-
-    // @Then("^I get a matching resource not found response$")
-  def iGetAMatchingResourceNotFoundResponse(): Unit = {
-    iGetNotFoundResponse("MATCHING_RESOURCE_NOT_FOUND");
-    expectedJsonMessage("A resource with the name in the request can not be found in the API");
-  }
-
-  def iGetANotAcceptableResponseDueToAnInvalidAcceptHeader(): Unit = {
-    iGetAnAcceptHeaderInvalidResponse();
-  }
-
-  def iGetAnUnacceptableResponseDueToAMissingAcceptHeader(): Unit = {
-    iGetAnAcceptHeaderInvalidResponse();
-  }
 }
-

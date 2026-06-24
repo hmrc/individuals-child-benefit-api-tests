@@ -73,9 +73,8 @@ class HmrcRequestSpecBuilder {
       this
   }
 
-
-  def setAuth(authenticationScheme: AuthenticationScheme): HmrcRequestSpecBuilder = {
-      inner = inner.setAuth(authenticationScheme);
+  def setAuth(token: String): HmrcRequestSpecBuilder = {
+      inner = inner.addHeader("Authorization", token) // inner.setAuth(oauth2(token));
       this;
   }
 }

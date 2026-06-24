@@ -24,6 +24,8 @@ object AccessTokenHolder {
 
     def bearerToken() = accessToken.get
 
+    def setToken(token: String): Unit = accessToken = Some(token)
+
     def extractAndStoreToken(response: ValidatableResponse): Unit = {
         accessToken = Some(response.extract().path("access_token").toString())
     }
