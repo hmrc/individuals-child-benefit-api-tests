@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.test.apis.helpers.response
 
-import io.restassured.response.ValidatableResponse;
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.*
 import io.restassured.http.ContentType.JSON;

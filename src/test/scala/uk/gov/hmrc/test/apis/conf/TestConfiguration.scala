@@ -41,13 +41,4 @@ object TestConfiguration {
   lazy val baseApiUrl: String =
     envConfig.getString("baseApiUrl")
 
-  lazy val clientId: String =
-    envConfig.getString("privilegedApplicationClientId")
-
-  lazy val clientSecret: String =
-    envConfig.getString("privilegedApplicationClientSecret")
-
-  lazy val totpSecret: String =
-    envConfig.getString("privilegedApplicationTotpSecret")
-
 }
