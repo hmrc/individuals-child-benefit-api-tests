@@ -72,11 +72,4 @@ trait IndividualsChildBenefitsApi extends RequestHelper with ResponseHelper {
         .all()
     )
   }
-
-  // def expectedIndividualsChildBenefitJsonErrorCode(expectedCode: String) =
-  //   response().body("errors.code", hasItem(expectedCode));
-
-  // def expectedIndividualsChildBenefitJsonReason(expectedReason: String) =
-  //   response().body("errors.message", hasItem(expectedReason));
-
 }

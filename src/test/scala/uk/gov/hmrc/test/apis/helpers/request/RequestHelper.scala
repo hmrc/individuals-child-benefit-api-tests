@@ -24,8 +24,4 @@ trait RequestHelper {
 
   def specification(): RequestSpecification =
     return builder.build();
-
-  // // @Before
-  // def cleanup(): Unit =
-  //   builder = new HmrcRequestSpecBuilder();
 }

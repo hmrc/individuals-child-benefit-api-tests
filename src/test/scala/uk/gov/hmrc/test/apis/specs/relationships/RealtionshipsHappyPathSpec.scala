@@ -53,7 +53,7 @@ class RealtionshipsHappyPathSpec extends BaseSpec with RelationshipsSteps {
       When("I make a request to the get relationship details endpoint with an id of BA000002D")
       iMakeARequestToTheRelationshipsEndpointWithAnIdOf("BA000002D")
 
-      Then("I get a bad request response due to an invalid Id number")
+      Then("I get a not found response due to an invalid Id number")
       expectedHttpStatusCode(404)
       expectedArrayJsonErrorCode("NOT_FOUND_IDENTIFIER")
       expectedArrayJsonMessage("The remote endpoint has indicated that the identifier provided cannot be found.")

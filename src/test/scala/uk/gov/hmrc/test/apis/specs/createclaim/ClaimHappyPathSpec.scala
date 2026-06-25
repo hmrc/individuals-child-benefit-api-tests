@@ -36,7 +36,7 @@ class CreateClaimHappyPathSpec extends BaseSpec with CreateClaimsSteps {
       When("I make a request to the post child benefits claim endpoint with a valid payload")
       iMakeARequestToThePostChildBenefitsClaimEndpointWithAValidPayload()
 
-      Then("I get a service temporarily unavailable response")
+      Then("I get a successfully create response")
       expectedHttpStatusCode(201)
     }
 

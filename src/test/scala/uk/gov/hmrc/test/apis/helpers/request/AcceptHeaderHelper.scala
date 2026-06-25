@@ -24,10 +24,10 @@ trait AcceptHeaderHelper {
 
   def withIncorrectAcceptHeaderVersion(): HmrcRequestSpecBuilder =
     builder.setAccept("application/vnd.hmrc.99.0+json")
-//
+
   def withInvalidAcceptHeader(): HmrcRequestSpecBuilder          =
     builder.setAccept("application/vnd.xyz.1.0+json")
-//
+
   def withNoAcceptHeader(): HmrcRequestSpecBuilder               =
     builder.setNoAccept()
 }

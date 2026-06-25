@@ -8,7 +8,7 @@ individuals-child-benefit API tests.
 
 ### Services
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+Start `INDIVIDUALS_CHILD_BENEFIT_API_ALL` services as follows:
 
 ```bash
 sm2 --start INDIVIDUALS_CHILD_BENEFIT_API_ALL
@@ -22,52 +22,6 @@ Run tests as follows:
 
 ```bash
 ./run_tests.sh <environment>
-```
-
-## Scalafmt
-
-Check all project files are formatted as expected as follows:
-
-```bash
-sbt scalafmtCheckAll scalafmtCheck
-```
-
-Format `*.sbt` and `project/*.scala` files as follows:
-
-```bash
-sbt scalafmtSbt
-```
-
-Format all project files as follows:
-
-```bash
-sbt scalafmtAll
-```
-
-## License
-
-### Services
-
-Start Mongo Docker container as follows:
-
-```bash
-docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
-```
-
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
-
-```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
-```
-
-## Tests
-
-Run tests as follows:
-
-* Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
-
-```bash
-./run-tests.sh <environment>
 ```
 
 ## Scalafmt
