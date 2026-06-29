@@ -8,7 +8,9 @@ individuals-child-benefit API tests.
 
 ### Services
 
+```bash
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
+```
 
 Start `INDIVIDUALS_CHILD_BENEFIT_API_ALL` services as follows:
 
