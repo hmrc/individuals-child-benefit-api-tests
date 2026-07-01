@@ -25,7 +25,7 @@ Run tests as follows:
 * Argument `<environment>` must be `local` at the present time.
 
 ```bash
-./run_tests.sh <environment>
+./run-tests.sh <environment>
 ```
 
 ## Scalafmt
