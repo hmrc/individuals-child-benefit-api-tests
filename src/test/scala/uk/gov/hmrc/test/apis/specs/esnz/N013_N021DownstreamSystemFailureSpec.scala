@@ -1,6 +1,5 @@
 package uk.gov.hmrc.test.apis.specs.esnz
 
-import play.api.libs.json.Json
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 
