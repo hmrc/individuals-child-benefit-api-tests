@@ -1,0 +1,82 @@
+package uk.gov.hmrc.test.apis.specs.esnz
+import uk.gov.hmrc.test.apis.steps.CommonSteps
+import uk.gov.hmrc.test.apis.specs.BaseSpec
+
+class H001HappyPathSpec extends BaseSpec with CommonSteps {
+
+  Feature("Claimant's child is born on or after the provided date - Happy Path Scenarios") {
+
+    val happyPathData = Table(
+      ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "statusCode"),
+      ("Success : 1 child DOB on the provided date", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 200),
+      (
+        "Success : 2 Children DOB After & Before Provided Date",
+        "Robert",
+        "Anderson",
+        "1990-06-27",
+        "AA000007A",
+        "2025-12-31",
+        200
+      ),
+      (
+        "Success : 2 Children DOB After ProvidedDate with DOD",
+        "Daniel",
+        "Jackson",
+        "1990-06-27",
+        "AA000011A",
+        "2018-01-01",
+        200
+      ),
+      (
+        "Success : 4 Children DOB After & Before Provided Date",
+        "Tom",
+        "Andrews",
+        "1990-06-27",
+        "AA000014A",
+        "2023-05-01",
+        200
+      ),
+      (
+        "Success : 3 Children DOB On Provided Date with DOD",
+        "Hannah",
+        "White",
+        "1990-06-27",
+        "AA000012A",
+        "2024-06-27",
+        200
+      )
+    )
+    forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
+      Scenario(scenario) {
+
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
+
+        And("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        When("I make a request to the child verification endpoint with a valid payload")
+        iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
+          scenario,
+          firstName,
+          secondName,
+          dateOfBirth,
+          nino,
+          bornOnOrAfter,
+          responseStatusCode
+        )
+
+        Then("I get a successful response")
+        expectedHttpStatusCode(responseStatusCode)
+
+        And("Success response body must contain correct success details")
+        expectedJsonSuccessEligibleMessage(true)
+
+      }
+    }
+
+  }
+}

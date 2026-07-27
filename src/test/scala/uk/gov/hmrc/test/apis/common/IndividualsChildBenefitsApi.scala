@@ -72,4 +72,17 @@ trait IndividualsChildBenefitsApi extends RequestHelper with ResponseHelper {
         .all()
     )
   }
+
+  def iMakeARequestToTheIndividualChildBenefitsChildVerificationEndpointWithPayload(payload: String): Unit =
+    response(
+      `given`()
+        .spec(specification())
+        .body(payload)
+        .log()
+        .all()
+        .post(s"$baseApiUrl/child-verification/verify")
+        .`then`()
+        .log()
+        .all()
+    )
 }

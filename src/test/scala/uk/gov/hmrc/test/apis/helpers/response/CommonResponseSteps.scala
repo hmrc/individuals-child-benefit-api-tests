@@ -35,8 +35,12 @@ trait CommonResponseSteps {
     response().body(field, is(expectation))
   }
 
-  def expectedJsonErrorCode(expectedCode: String): Unit       = expectedJsonBodyField("code", expectedCode)
-  def expectedJsonMessage(expectedMessage: String): Unit      = expectedJsonBodyField("message", expectedMessage)
+  def expectedJsonErrorCode(expectedCode: String): Unit  = expectedJsonBodyField("code", expectedCode)
+  def expectedJsonMessage(expectedMessage: String): Unit = expectedJsonBodyField("message", expectedMessage)
+
+  def expectedJsonSuccessEligibleMessage(expectedResponseBody: Boolean): Unit =
+    expectedJsonBodyField("eligible", expectedResponseBody)
+
   def expectedArrayJsonErrorCode(expectedCode: String): Unit  =
     expectedJsonBodyField("errors.code", singletonList(expectedCode))
   def expectedArrayJsonMessage(expectedMessage: String): Unit =

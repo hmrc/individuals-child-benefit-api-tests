@@ -75,4 +75,9 @@ class HmrcRequestSpecBuilder {
     inner = inner.addHeader("Authorization", token) // inner.setAuth(oauth2(token));
     this;
   }
+
+  def setNoAuth(): HmrcRequestSpecBuilder = {
+    needsDefaultHeader = false
+    this
+  }
 }
