@@ -27,6 +27,8 @@ trait CommonResponseSteps {
   def expectedHttpStatusCode(expectedStatus: Int): Unit =
     response().statusCode(equalTo(expectedStatus))
 
+  def expectedEmptyBody = response().body(is(emptyOrNullString()))
+
   def expectedContentType(expectedContentType: ContentType): Unit =
     response().contentType(equalTo(expectedContentType.getContentTypeStrings().apply(0)))
 
@@ -40,6 +42,8 @@ trait CommonResponseSteps {
 
   def expectedJsonSuccessEligibleMessage(expectedResponseBody: Boolean): Unit =
     expectedJsonBodyField("eligible", expectedResponseBody)
+
+  def expectedResponse(option: Option[String]): Unit = response().eq(option)
 
   def expectedArrayJsonErrorCode(expectedCode: String): Unit  =
     expectedJsonBodyField("errors.code", singletonList(expectedCode))

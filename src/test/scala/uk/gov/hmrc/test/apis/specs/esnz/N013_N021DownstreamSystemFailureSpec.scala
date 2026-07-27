@@ -121,8 +121,11 @@ class N013_N021DownstreamSystemFailureSpec extends BaseSpec with CommonSteps {
         And("Success response body must contain correct error details")
         if (responseStatusCode == 200) {
           expectedJsonSuccessEligibleMessage(false)
+        } else if (responseStatusCode == 502) {
+          expectedJsonErrorCode("DOWNSTREAM_ERROR")
+          expectedJsonMessage("A downstream service is currently unavailable")
         } else {
-          // apiResponse.body mustBe empty
+          expectedEmptyBody
         }
 
       }

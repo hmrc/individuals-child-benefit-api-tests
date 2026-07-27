@@ -60,7 +60,7 @@ class N010_N012ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps {
         if (responseStatusCode == 200) {
           expectedJsonSuccessEligibleMessage(false)
         } else {
-          // apiResponse.body mustBe empty
+          expectedEmptyBody
         }
 
       }

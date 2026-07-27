@@ -39,6 +39,7 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         expectedHttpStatusCode(responseStatusCode)
 
         And("No error body is return")
+        expectedEmptyBody
 
       }
 
@@ -64,7 +65,8 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         Then("I get a error response")
         expectedHttpStatusCode(responseStatusCode)
 
-        And("Error response body must contain correct error details")
+        And("No error body is return")
+        expectedEmptyBody
 
       }
 
@@ -93,12 +95,8 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         Then("I get a error response")
         expectedHttpStatusCode(responseStatusCode)
 
-        And("Error response body must contain correct error details")
-        /*val responseBody = Json.parse(apiResponse.body)(responseBody \ "errors").as[JsArray].value.size shouldBe 1 (
-          responseBody \ "errors"
-        )(0).\("code").as[String] shouldBe "ACCEPT_HEADER_INVALID" (responseBody \ "errors")(0)
-          .\("message")
-          .as[String]             shouldBe "The accept header is missing or invalid"*/
+        And("No error body is return")
+        expectedEmptyBody
 
       }
 
@@ -127,12 +125,8 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         Then("I get a error response")
         expectedHttpStatusCode(responseStatusCode)
 
-        And("Error response body must contain correct error details")
-        /*val responseBody = Json.parse(apiResponse.body)(responseBody \ "errors").as[JsArray].value.size shouldBe 1 (
-          responseBody \ "errors"
-        )(0).\("code").as[String] shouldBe "ACCEPT_HEADER_INVALID" (responseBody \ "errors")(0)
-          .\("message")
-          .as[String]             shouldBe "The accept header is missing or invalid"*/
+        And("No error body is return")
+        expectedEmptyBody
 
       }
 

@@ -83,7 +83,7 @@ class N001_N006ClaimantIdentityCheckFailureSpec extends BaseSpec with CommonStep
         expectedHttpStatusCode(responseStatusCode)
 
         And("No error response body should be return")
-        // apiResponse.body mustBe empty
+        expectedEmptyBody
 
       }
     }
