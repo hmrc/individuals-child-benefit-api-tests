@@ -7,13 +7,11 @@ import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
 trait CommonSteps extends IndividualsChildBenefitsApi with CommonRequestSteps with CommonResponseSteps {
 
   def iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-    scenario: String,
     firstName: String,
     secondName: String,
     dateOfBirth: String,
     nino: String,
-    bornOnOrAfterDate: String,
-    responseStatusCode: Int
+    bornOnOrAfterDate: String
   ): Unit = {
     val payloadWithValidData =
       s"""{

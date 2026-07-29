@@ -18,7 +18,9 @@ package uk.gov.hmrc.test.apis.helpers.response
 
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.*
-import io.restassured.http.ContentType.JSON;
+import io.restassured.http.ContentType.JSON
+import org.jsoup.Connection.Request
+
 import java.util.Collections.singletonList;
 
 trait CommonResponseSteps {
@@ -42,6 +44,8 @@ trait CommonResponseSteps {
 
   def expectedJsonSuccessEligibleMessage(expectedResponseBody: Boolean): Unit =
     expectedJsonBodyField("eligible", expectedResponseBody)
+
+  def expectedCorrelationId(corrId: String) = response().header("CorrelationId", is(corrId))
 
   def expectedResponse(option: Option[String]): Unit = response().eq(option)
 

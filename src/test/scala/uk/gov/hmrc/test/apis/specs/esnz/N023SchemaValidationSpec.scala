@@ -2,6 +2,7 @@ package uk.gov.hmrc.test.apis.specs.esnz
 
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
+import java.util.UUID
 
 class N023SchemaValidationSpec extends BaseSpec with CommonSteps {
 
@@ -36,28 +37,31 @@ class N023SchemaValidationSpec extends BaseSpec with CommonSteps {
       ("bornOnOrAfter value is missing  in request body", "Laura", "Taylor", "1990-06-27", "AA000008A", "", 400),
       ("bornOnOrAfter is invalid regex in request body", "Laura", "Taylor", "127-06-2020", "AA000008A", "", 400)
     )
+    Given("I have a valid bearer token for my privileged application")
+    authenticate()
+
+    And("I have a valid accept header")
+    withValidAcceptHeaderVersion2()
+
+    And("I have a valid JSON content type header")
+    withJsonContentTypeHeader()
+
+    And("I have a valid correlation Id header")
+    val corrId = UUID.randomUUID().toString
+    withCorrIdHeader(corrId)
+
     forAll(schemaValidationData) {
       (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
+
         Scenario(scenario) {
-
-          Given("I have a valid bearer token for my privileged application")
-          authenticate()
-
-          And("I have a valid accept header")
-          withValidAcceptHeaderVersion2()
-
-          And("I have a valid JSON content type header")
-          withJsonContentTypeHeader()
 
           When("I make a request to the child verification endpoint with nino missing in request body")
           iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-            scenario,
             firstName,
             secondName,
             dateOfBirth,
             nino,
-            bornOnOrAfter,
-            responseStatusCode
+            bornOnOrAfter
           )
 
           Then("I get a error response")
@@ -67,8 +71,10 @@ class N023SchemaValidationSpec extends BaseSpec with CommonSteps {
           expectedJsonErrorCode("400")
           expectedJsonMessage("The JSON payload is invalid")
 
+          And("Response correlationId is same as Request correlationId")
+          expectedCorrelationId(corrId)
+
         }
     }
-
   }
 }

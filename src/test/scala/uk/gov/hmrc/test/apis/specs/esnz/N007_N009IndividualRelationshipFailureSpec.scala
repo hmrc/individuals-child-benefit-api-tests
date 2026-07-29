@@ -2,6 +2,7 @@ package uk.gov.hmrc.test.apis.specs.esnz
 
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
+import java.util.UUID
 
 class N007_N009IndividualRelationshipFailureSpec extends BaseSpec with CommonSteps {
 
@@ -37,38 +38,41 @@ class N007_N009IndividualRelationshipFailureSpec extends BaseSpec with CommonSte
         200
       )
     )
+    Given("I have a valid bearer token for my privileged application")
+    authenticate()
+
+    And("I have a valid accept header")
+    withValidAcceptHeaderVersion2()
+
+    And("I have a valid JSON content type header")
+    withJsonContentTypeHeader()
+
+    And("I have a valid correlation Id header")
+    val corrId = UUID.randomUUID().toString
+    withCorrIdHeader(corrId)
 
     forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
       Scenario(scenario) {
 
-        Given("I have a valid bearer token for my privileged application")
-        authenticate()
-
-        And("I have a valid accept header")
-        withValidAcceptHeaderVersion2()
-
-        And("I have a valid JSON content type header")
-        withJsonContentTypeHeader()
-
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-          scenario,
           firstName,
           secondName,
           dateOfBirth,
           nino,
-          bornOnOrAfter,
-          responseStatusCode
+          bornOnOrAfter
         )
 
         Then("I get a success response")
         expectedHttpStatusCode(responseStatusCode)
 
-        And("Success response body must contain correct error details")
+        And("Success response must contain correct json body")
         expectedJsonSuccessEligibleMessage(false)
+
+        And("Response correlationId is same as Request correlationId")
+        expectedCorrelationId(corrId)
 
       }
     }
-
   }
 }

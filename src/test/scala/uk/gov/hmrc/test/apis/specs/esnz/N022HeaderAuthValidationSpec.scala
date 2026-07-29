@@ -1,8 +1,8 @@
 package uk.gov.hmrc.test.apis.specs.esnz
 
-import play.api.libs.json.Json
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
+import java.util.UUID
 
 class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
 
@@ -12,27 +12,30 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
       ("Error :", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 401)
     )
+    Given("I have a valid accept header")
+    withValidAcceptHeaderVersion2()
+
+    And("I have a valid JSON content type header")
+    withJsonContentTypeHeader()
+
+    And("I have a valid correlation Id header")
+    val corrId = UUID.randomUUID().toString
+    withCorrIdHeader(corrId)
+
     forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
 
       Scenario(scenario + "Authorisation is invalid in request header") {
+
         Given("I have a invalid bearer token for my privileged application")
         withInvalidAuthHeader()
 
-        And("I have a valid accept header")
-        withValidAcceptHeaderVersion2()
-
-        And("I have a valid JSON content type header")
-        withJsonContentTypeHeader()
-
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-          scenario,
           firstName,
           secondName,
           dateOfBirth,
           nino,
-          bornOnOrAfter,
-          responseStatusCode
+          bornOnOrAfter
         )
 
         Then("I get a error response")
@@ -41,25 +44,19 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         And("No error body is return")
         expectedEmptyBody
 
+        And("Response correlationId is same as Request correlationId")
+        expectedCorrelationId(corrId)
       }
 
       Scenario(scenario + "Authorisation is missing in request header") {
 
-        Given("I have a valid accept header")
-        withValidAcceptHeaderVersion2()
-
-        And("I have a valid JSON content type header")
-        withJsonContentTypeHeader()
-
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-          scenario,
           firstName,
           secondName,
           dateOfBirth,
           nino,
-          bornOnOrAfter,
-          responseStatusCode
+          bornOnOrAfter
         )
 
         Then("I get a error response")
@@ -67,6 +64,9 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
 
         And("No error body is return")
         expectedEmptyBody
+
+        And("Response correlationId is same as Request correlationId")
+        expectedCorrelationId(corrId)
 
       }
 
@@ -75,21 +75,13 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         Given("I have a expired bearer token for my privileged application")
         withExpiredAuthHeader()
 
-        And("I have a valid accept header")
-        withValidAcceptHeaderVersion2()
-
-        And("I have a valid JSON content type header")
-        withJsonContentTypeHeader()
-
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-          scenario,
           firstName,
           secondName,
           dateOfBirth,
           nino,
-          bornOnOrAfter,
-          responseStatusCode
+          bornOnOrAfter
         )
 
         Then("I get a error response")
@@ -97,6 +89,9 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
 
         And("No error body is return")
         expectedEmptyBody
+
+        And("Response correlationId is same as Request correlationId")
+        expectedCorrelationId(corrId)
 
       }
 
@@ -105,21 +100,13 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         Given("I have a missing bearer token value  for my privileged application")
         withMissingAuthHeaderValue()
 
-        And("I have a valid accept header")
-        withValidAcceptHeaderVersion2()
-
-        And("I have a valid JSON content type header")
-        withJsonContentTypeHeader()
-
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-          scenario,
           firstName,
           secondName,
           dateOfBirth,
           nino,
-          bornOnOrAfter,
-          responseStatusCode
+          bornOnOrAfter
         )
 
         Then("I get a error response")
@@ -128,9 +115,10 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
         And("No error body is return")
         expectedEmptyBody
 
+        And("Response correlationId is same as Request correlationId")
+        expectedCorrelationId(corrId)
+
       }
-
     }
-
   }
 }
