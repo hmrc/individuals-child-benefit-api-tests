@@ -1,0 +1,61 @@
+meta {
+  name: N022_AuthValidation_Missing
+  type: http
+  seq: 2
+  tags: [
+    DOWNSTREAM
+  ]
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+  ~Authorization: {{authorization}}
+}
+
+body:json {
+  {
+    "firstName": "Laura",
+    "secondName": "Taylor",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000008A",
+    "bornOnOrAfter": "2025-12-01"
+  }
+}
+
+assert {
+  res.status: eq 401
+}
+
+tests {
+  test("Should accept either an empty body or a staging error payload on 401", function() {
+    const status = res.getStatus();
+    const body = res.getBody();
+    const headers = res.getHeaders();
+    const expectedCorrelationId = bru.getVar("correlationId");
+  
+    // First, verify it is genuinely a 401 Unauthorized
+    expect(status).to.equal(401);
+    
+  
+    // Conditional check: local (empty string/null) vs staging (JSON object)
+    if (!body || body === "") {
+      expect(headers).to.have.property("correlationid", expectedCorrelationId);
+      // Passes locally where the body is completely empty
+      expect(body).to.be.empty; 
+    } else {
+      // Passes on staging where a JSON error payload is injected
+      expect(body).to.be.an("object");
+      expect(body).to.have.property("code");
+      expect(body).to.have.property("message");
+     // expect(headers).to.have.property("correlationid", expectedCorrelationId);
+     
+    }
+  });
+}

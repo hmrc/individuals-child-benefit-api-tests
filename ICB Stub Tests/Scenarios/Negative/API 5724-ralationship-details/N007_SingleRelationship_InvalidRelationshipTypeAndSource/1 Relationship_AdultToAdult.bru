@@ -1,0 +1,16 @@
+meta {
+  name: 1 Relationship_AdultToAdult
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{relationshipDetails-api-host}}/{{relationshipDetails-api-path}}/AA000001A/relationship
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

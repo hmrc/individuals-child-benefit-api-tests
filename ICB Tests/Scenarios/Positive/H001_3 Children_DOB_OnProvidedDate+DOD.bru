@@ -1,0 +1,38 @@
+meta {
+  name: H001_3 Children_DOB_OnProvidedDate+DOD
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Hannah",
+    "secondName": "White",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000012A",
+    "bornOnOrAfter": "2024-06-27"
+  }
+}
+
+assert {
+  ~res.code: eq 200
+  ~res.body.eligible: eq true
+  ~res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

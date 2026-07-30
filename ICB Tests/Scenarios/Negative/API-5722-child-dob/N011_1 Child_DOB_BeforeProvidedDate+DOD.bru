@@ -1,0 +1,32 @@
+meta {
+  name: N011_1 Child_DOB_BeforeProvidedDate+DOD
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Andrew",
+    "secondName": "Harris",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000013A",
+    "bornOnOrAfter": "2023-06-28"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

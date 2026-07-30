@@ -1,0 +1,85 @@
+script:pre-request {
+  if (['local', 'development', 'qa', 'staging'].includes(bru.getEnvVar("ENVIRONMENT"))) {
+    const helpers = require('./_lib/helpers');
+  
+    const randomNino = helpers.randomNino();
+    bru.setEnvVar("nino", randomNino);
+  
+    const randomInvalidNino = helpers.randomInvalidNino();
+    bru.setEnvVar("invalidNino", randomInvalidNino);
+  
+    const randomUniversalCreditRecordType = helpers.randomUniversalCreditRecordType();
+    bru.setEnvVar("universalCreditRecordType", randomUniversalCreditRecordType);
+  }
+  
+  bru.setVar('correlationId', bru.interpolate('{{$guid}}'));
+}
+
+docs {
+  # Individuals Child Benefits API
+  
+  This collection validates the [individuals-child-benefit-api](https://github.com/hmrc/individuals-child-benefit-api) logic and its downstream integration.
+  
+  ## Prerequisites
+  
+  - [Bruno](https://www.usebruno.com) installed
+  - Run `npm install` in the collection folder to install the `totp-generator`.
+  - Set Bruno to [Developer Mode](https://docs.usebruno.com/configure/javascript-sandbox)
+  
+  ## Environment Setup
+  
+  ### Local / Development
+  
+  No additional setup required because they use stubs.
+  
+  ### QA / External Test
+  
+  Get these variables from the HMRC Developer Hub and add them to each environment:
+  
+  - `clientId`
+  - `clientSecret`
+  - `TOTP_SECRET`
+  
+  Get the following variable from DWP:
+  
+  - `gov-uk-originator-id`
+  
+  
+  ## Authentication
+  
+  Before running the collection, you must obtain a bearer token:
+  
+  1. Select the target **Environment** (Local, Development, QA, External Test)
+  2. Run the matching Auth request.
+  
+  The token is stored automatically and used for subsequent requests.
+  
+  
+  ## Running Tests
+  
+  ### Full Suite
+  
+  Right click on the collection folder and select "Run collection".
+  
+  Alternatively, install the [Bruno CLI](https://docs.usebruno.com/bru-cli/installation), and then `bru run`.
+  
+  
+  ## Filtered Runs (via Tags)
+  
+  The requests are tagged to isolate test scenarios:
+  
+  - `API`: requests that test standard API responses
+  - `DOWNSTREAM`: requests that test downstream error handling (e.g. HIP returns 400, API returns 500)
+  
+  #### GUI
+  
+  1. Right click on a folder and select "Filter requests with tags"
+  2. Click in the "Included tags" input field and select `API` or `DOWNSTREAM`
+  3. Click "Run collection"
+  
+  #### CLI
+  
+  - `bru run --tag API`: run only API-tagged requests
+  - `bru run --tag DOWNSTREAM`: run only DOWNSTREAM-tagged requests
+  
+}

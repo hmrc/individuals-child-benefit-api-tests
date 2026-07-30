@@ -1,0 +1,16 @@
+meta {
+  name: SingleRelationship_AA000013A
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{relationshipDetails-api-host}}/{{relationshipDetails-api-path}}AA000013A/relationship
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

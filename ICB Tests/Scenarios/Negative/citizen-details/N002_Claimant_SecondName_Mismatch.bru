@@ -1,0 +1,38 @@
+meta {
+  name: N002_Claimant_SecondName_Mismatch
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Tom",
+    "secondName": "And",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000014A",
+    "bornOnOrAfter": "2000-01-01"
+  }
+}
+
+assert {
+  res.status: eq 404
+  res.body: isEmpty
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

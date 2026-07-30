@@ -1,0 +1,16 @@
+meta {
+  name: TwoRelationships_AA000007A
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{relationshipDetails-api-host}}/{{relationshipDetails-api-path}}/AA000007A/relationship
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,38 @@
+meta {
+  name: N008_SingleRelationship_validRelationshipTypeAndInvalidSource
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Jess",
+    "secondName": "Bird",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000018A",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.eligible: eq false
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,16 @@
+meta {
+  name: 500_AA000020A
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{relationshipDetails-api-host}}/{{relationshipDetails-api-path}}/AA000020A/relationship
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

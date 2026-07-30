@@ -1,0 +1,38 @@
+meta {
+  name: H001_4 Children_DOB_AfterBeforeProvidedDate
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Tom",
+    "secondName": "Andrews",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000014A",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.eligible: eq true
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

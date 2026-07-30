@@ -1,0 +1,16 @@
+meta {
+  name: 500_AC000019C
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{childDOB-api-host}}/{{childDOB-api-path}}/AC000019C/date-of-birth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

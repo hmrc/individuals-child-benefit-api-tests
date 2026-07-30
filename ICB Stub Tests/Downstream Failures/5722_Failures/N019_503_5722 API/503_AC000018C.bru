@@ -1,0 +1,16 @@
+meta {
+  name: 503_AC000018C
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{childDOB-api-host}}/{{childDOB-api-path}}/AC000018C/date-of-birth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

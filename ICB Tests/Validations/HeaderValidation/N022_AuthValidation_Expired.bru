@@ -1,0 +1,53 @@
+meta {
+  name: N022_AuthValidation_Expired
+  type: http
+  seq: 4
+  tags: [
+    DOWNSTREAM
+  ]
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/vnd.hmrc.2.0+json
+  Authorization: Bearer BXQ3/Treo4kQCZvVcCqKPrCyt041gc3fUvEnKccCB/7AxuI4aQDaoz3pQsgEBNYN3AqfWySOltI1mb198EX71ip+Jpzc7HORcnAb7yrOSRkmOdP9L8moOVDPVbTn89UG4BGVQBZ5qiLONk7oyqCs2SLdaWtwpen0nS2e9XTqlS+vazTTlox+CDBpvIoTXOJy/SsCJHiDyv5jJQREo7nuFQ==,GNAP dummy-60d76ef6cd71453fbef19b1d77797ddc
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Laura",
+    "secondName": "Taylor",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000008A",
+    "bornOnOrAfter": "2025-12-01"
+  }
+}
+
+tests {
+  test("Should accept either an empty body or a staging error payload on 401", function() {
+    const status = res.getStatus();
+    const body = res.getBody();
+  
+    // First, verify it is genuinely a 401 Unauthorized
+    expect(status).to.equal(401);
+  
+    // Conditional check: local (empty string/null) vs staging (JSON object)
+    if (!body || body === "") {
+      expect(headers).to.have.property("correlationid", expectedCorrelationId);
+      // Passes locally where the body is completely empty
+      expect(body).to.be.empty; 
+    } else {
+      // Passes on staging where a JSON error payload is injected
+      expect(body).to.be.an("object");
+      expect(body).to.have.property("code");
+      expect(body).to.have.property("message");
+     
+    }
+  });
+}
