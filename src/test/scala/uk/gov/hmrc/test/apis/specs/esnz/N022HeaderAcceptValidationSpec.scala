@@ -47,6 +47,15 @@ class N022HeaderAcceptValidationSpec extends BaseSpec with CommonSteps {
         }
 
         Scenario(scenario + "Accept is missing in request header") {
+          withNoAcceptHeader()
+          Given("I have a valid bearer token for my privileged application")
+          authenticate()
+
+          And("I have a valid JSON content type header")
+          withJsonContentTypeHeader()
+
+          And("I have a valid correlation Id header")
+          withCorrIdHeader(corrId)
 
           When("I make a request to the child verification endpoint with a valid payload")
           iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
