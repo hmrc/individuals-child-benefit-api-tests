@@ -1,7 +1,7 @@
 meta {
-  name: N020_500
+  name: N024_504
   type: http
-  seq: 1
+  seq: 5
 }
 
 post {
@@ -18,17 +18,16 @@ headers {
 
 body:json {
   {
-    "firstName": "Jess",
-    "secondName": "Bird",
+    "firstName": "Raymond",
+    "secondName": "Reddington",
     "dateOfBirth": "1990-06-27",
-    "nino": "AA000022A",
+    "nino": "AA000031A",
     "bornOnOrAfter": "2023-05-01"
   }
 }
 
 assert {
-  res.status: eq 500
-  res.body: isEmpty
+  res.status: eq 504
   res.headers.correlationid: eq {{correlationId}}
 }
 
