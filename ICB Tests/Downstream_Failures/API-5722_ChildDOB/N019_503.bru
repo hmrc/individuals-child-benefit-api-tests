@@ -1,0 +1,50 @@
+meta {
+  name: N019_503
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Jess",
+    "secondName": "Bird",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000021A",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+tests {
+  test("Should validate 503 response body based on environment", function() {
+    const status = res.getStatus();
+    const body = res.getBody();
+  
+    expect(status).to.equal(503);
+  
+    if (!body || body === "") {
+      expect(body).to.be.empty;
+    } else {
+      expect(body).to.be.an("object");
+      expect(body).to.have.property("code", "SERVER_ERROR");
+      console.log("Staging 503 Payload details:", JSON.stringify(body));
+    }
+  });
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
