@@ -1,18 +1,18 @@
 package uk.gov.hmrc.test.apis.specs.esnz
 
+import org.scalatest.BeforeAndAfterEach
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
+
 import java.util.UUID
 
-class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
+class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
-  Feature("Auth validation Failure - Header Validation Scenario") {
-
-    val happyPathData = Table(
-      ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
-      ("Error :", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 401)
-    )
-
+  val corrId = UUID.randomUUID().toString
+  
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    builder.reset()
     Given("I have a valid accept header")
     withValidAcceptHeaderVersion2()
 
@@ -20,8 +20,15 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
     withJsonContentTypeHeader()
 
     And("I have a valid correlation Id header")
-    val corrId = UUID.randomUUID().toString
     withCorrIdHeader(corrId)
+  }
+
+  Feature("Auth validation Failure - Header Validation Scenario") {
+
+    val happyPathData = Table(
+      ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
+      ("Error :", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 401)
+    )
 
     forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
 
@@ -50,18 +57,8 @@ class N022HeaderAuthValidationSpec extends BaseSpec with CommonSteps {
       }
 
       Scenario(scenario + "Authorisation is missing in request header") {
-
         withNoAuthHeader()
-
-        Given("I have a valid accept header")
-        withValidAcceptHeaderVersion2()
-
-        And("I have a valid JSON content type header")
-        withJsonContentTypeHeader()
-
-        And("I have a valid correlation Id header")
-        withCorrIdHeader(corrId)
-
+        
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
           firstName,

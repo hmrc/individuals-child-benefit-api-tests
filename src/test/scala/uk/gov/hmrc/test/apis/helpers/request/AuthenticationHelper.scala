@@ -32,7 +32,6 @@ trait AuthenticationHelper extends AuthHelper {
   }
 
   def withNoAuthHeader(): HmrcRequestSpecBuilder = {
-    builder.reset()
     builder.setNoAuth()
   }
 

@@ -23,19 +23,8 @@ import io.restassured.specification.RequestSpecification
 import io.restassured.http.ContentType
 
 class HmrcRequestSpecBuilder {
-
-  private def createRequestSpecBuilder(): RequestSpecBuilder = new RequestSpecBuilder()
-    .setConfig(
-      config().headerConfig(
-        headerConfig().overwriteHeadersWithName(
-          "CorrelationId",
-          "Accept",
-          "Content-Type",
-          "Authorization"
-        )
-      )
-    )
-  private var inner: RequestSpecBuilder = createRequestSpecBuilder()
+  
+  private var inner: RequestSpecBuilder = new RequestSpecBuilder
   private var needsDefaultHeader: Boolean = true
 
   def build(): RequestSpecification = {
@@ -44,7 +33,7 @@ class HmrcRequestSpecBuilder {
   }
 
   def reset(): HmrcRequestSpecBuilder = {
-    inner = createRequestSpecBuilder()
+    inner = new RequestSpecBuilder()
     needsDefaultHeader = true
     this
   }

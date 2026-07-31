@@ -31,7 +31,6 @@ trait AcceptHeaderHelper {
     builder.setAccept("application/vnd.xyz.1.0+json")
 
   def withNoAcceptHeader(): HmrcRequestSpecBuilder = {
-    builder.reset()
     builder.setNoAccept()
   }
 
