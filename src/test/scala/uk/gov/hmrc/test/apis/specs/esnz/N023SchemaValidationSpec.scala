@@ -1,10 +1,30 @@
 package uk.gov.hmrc.test.apis.specs.esnz
 
+import org.scalatest.BeforeAndAfterEach
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
+
 import java.util.UUID
 
-class N023SchemaValidationSpec extends BaseSpec with CommonSteps {
+class N023SchemaValidationSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
+
+  val corrId = UUID.randomUUID().toString
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    builder.reset()
+    Given("I have a valid bearer token for my privileged application")
+    authenticate()
+
+    And("I have a valid accept header")
+    withValidAcceptHeaderVersion2()
+
+    And("I have a valid JSON content type header")
+    withJsonContentTypeHeader()
+
+    And("I have a valid correlation Id header")
+    withCorrIdHeader(corrId)
+  }
 
   Feature("N023_Schema validation failures") {
     val schemaValidationData = Table(
@@ -37,18 +57,6 @@ class N023SchemaValidationSpec extends BaseSpec with CommonSteps {
       ("bornOnOrAfter value is missing  in request body", "Laura", "Taylor", "1990-06-27", "AA000008A", "", 400),
       ("bornOnOrAfter is invalid regex in request body", "Laura", "Taylor", "127-06-2020", "AA000008A", "", 400)
     )
-    Given("I have a valid bearer token for my privileged application")
-    authenticate()
-
-    And("I have a valid accept header")
-    withValidAcceptHeaderVersion2()
-
-    And("I have a valid JSON content type header")
-    withJsonContentTypeHeader()
-
-    And("I have a valid correlation Id header")
-    val corrId = UUID.randomUUID().toString
-    withCorrIdHeader(corrId)
 
     forAll(schemaValidationData) {
       (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
