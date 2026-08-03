@@ -6,7 +6,7 @@ import uk.gov.hmrc.test.apis.steps.CommonSteps
 
 import java.util.UUID
 
-class N007_N009IndividualRelationshipFailureSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
+class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
   val corrId = UUID.randomUUID().toString
 
@@ -26,36 +26,27 @@ class N007_N009IndividualRelationshipFailureSpec extends BaseSpec with CommonSte
     withCorrIdHeader(corrId)
   }
 
-  Feature("Claimant's relationship type and source check failures - Negative Path Scenarios") {
+  Feature("Claimant's child DOB check failures - Negative Path Scenarios") {
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
       (
-        "Failure : N007_Claimant's relationship type and source are not classified as expected",
-        "Michael",
-        "Johnson",
+        "Failure : N010_Claimant's child is born before the provided date",
+        "James",
+        "Brown",
         "1990-06-27",
-        "AA000001A",
-        "2023-05-01",
+        "AA000003A",
+        "2024-06-28",
         200
       ),
       (
-        "Failure : N008_Claimant's relationship source is not classified as expected",
+        "Failure : N012_Claimant's children data not found",
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000018A",
-        "2023-05-01",
-        200
-      ),
-      (
-        "Failure : N008_Claimant's relationship data not found",
-        "Frank",
-        "Smith",
-        "1990-06-27",
-        "AA000016A",
-        "2023-05-01",
-        200
+        "AA000017A",
+        "2025-06-01",
+        500
       )
     )
 
@@ -75,7 +66,11 @@ class N007_N009IndividualRelationshipFailureSpec extends BaseSpec with CommonSte
         expectedHttpStatusCode(responseStatusCode)
 
         And("Success response must contain correct json body")
-        expectedJsonSuccessEligibleMessage(false)
+        if (responseStatusCode == 200) {
+          expectedJsonSuccessEligibleMessage(false)
+        } else {
+          expectedEmptyBody
+        }
 
         And("Response correlationId is same as Request correlationId")
         expectedCorrelationId(corrId)

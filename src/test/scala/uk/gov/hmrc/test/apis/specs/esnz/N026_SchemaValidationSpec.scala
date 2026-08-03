@@ -6,7 +6,7 @@ import uk.gov.hmrc.test.apis.steps.CommonSteps
 
 import java.util.UUID
 
-class N023SchemaValidationSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
+class N026_SchemaValidationSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
   val corrId = UUID.randomUUID().toString
 

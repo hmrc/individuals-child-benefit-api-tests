@@ -39,12 +39,7 @@ tests {
       expect(body).to.have.property("errors").and.be.an("array");
       expect(body.errors[0]).to.have.property("code", "ACCEPT_HEADER_INVALID");
       expect(body.errors[0]).to.have.property("message", "The accept header is missing or invalid");
-  
-     // const expectedCorrelationId = bru.getVar("correlationId");
-     // expect(headers).to.have.property("correlationid", expectedCorrelationId);
-  
     } else if (status === 404) {
-      
       console.warn("Detected Staging behavior: API returned a 404 instead of 406.");
       expect(status).to.equal(404);
       expect(body).to.be.an("object");

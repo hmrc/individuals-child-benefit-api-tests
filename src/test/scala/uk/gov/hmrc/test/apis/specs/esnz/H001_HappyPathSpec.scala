@@ -20,7 +20,7 @@ import uk.gov.hmrc.test.apis.specs.BaseSpec
 
 import java.util.UUID
 
-class H001HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
+class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
   val corrId = UUID.randomUUID().toString
 

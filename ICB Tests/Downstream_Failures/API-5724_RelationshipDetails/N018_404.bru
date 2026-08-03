@@ -30,12 +30,15 @@ tests {
   test("Should validate 502/503 downstream failure conditionally across environments", function() {
     const status = res.getStatus();
     const body = res.getBody();
+    const headers = res.getHeaders();
   
   
     if (status === 502) {
       expect(body).to.be.an("object");
       expect(body).to.have.property("code", "DOWNSTREAM_ERROR");
       expect(body).to.have.property("message", "A downstream service is currently unavailable");
+      const expectedCorrelationId = bru.getVar("correlationId");
+      expect(headers).to.have.property("correlationid", expectedCorrelationId);
   
     } else if (status === 503) {
       expect(body).to.be.an("object");

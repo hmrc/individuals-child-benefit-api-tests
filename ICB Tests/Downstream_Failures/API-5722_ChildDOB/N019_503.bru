@@ -30,11 +30,14 @@ tests {
   test("Should validate 503 response body based on environment", function() {
     const status = res.getStatus();
     const body = res.getBody();
+    const headers = res.getHeaders();
   
     expect(status).to.equal(503);
   
     if (!body || body === "") {
       expect(body).to.be.empty;
+      const expectedCorrelationId = bru.getVar("correlationId");
+      expect(headers).to.have.property("correlationid", expectedCorrelationId);
     } else {
       expect(body).to.be.an("object");
       expect(body).to.have.property("code", "SERVER_ERROR");
