@@ -1,5 +1,5 @@
 meta {
-  name: N022_AuthValidation_Expired
+  name: N025_AuthValidation_Expired
   type: http
   seq: 4
   tags: [
@@ -33,9 +33,12 @@ tests {
   test("Should accept either an empty body or a staging error payload on 401", function() {
     const status = res.getStatus();
     const body = res.getBody();
+    const headers = res.getHeaders();
+    const expectedCorrelationId = bru.getVar("correlationId");
   
     // First, verify it is genuinely a 401 Unauthorized
     expect(status).to.equal(401);
+    
   
     // Conditional check: local (empty string/null) vs staging (JSON object)
     if (!body || body === "") {
@@ -47,6 +50,7 @@ tests {
       expect(body).to.be.an("object");
       expect(body).to.have.property("code");
       expect(body).to.have.property("message");
+     // expect(headers).to.have.property("correlationid", expectedCorrelationId);
      
     }
   });

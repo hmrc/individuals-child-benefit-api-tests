@@ -1,7 +1,7 @@
 meta {
-  name: N023_FirstName_MoreThan35Char_400
+  name: N026_NINO_Missing_400
   type: http
-  seq: 8
+  seq: 6
   tags: [
     DOWNSTREAM
   ]
@@ -21,10 +21,9 @@ headers {
 
 body:json {
   {
-    "firstName": "LauraLauraLauraLauraLauraLauraLaura1",
+    "firstName": "Laura",
     "secondName": "Taylor",
     "dateOfBirth": "1990-06-27",
-    "nino": "AA000008A",
     "bornOnOrAfter": "2025-12-01"
   }
 }

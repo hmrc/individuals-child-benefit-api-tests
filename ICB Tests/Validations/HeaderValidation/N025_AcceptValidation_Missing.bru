@@ -1,7 +1,7 @@
 meta {
-  name: N022_AcceptValidation_MissingValue
+  name: N025_AcceptValidation_Missing
   type: http
-  seq: 7
+  seq: 6
   tags: [
     DOWNSTREAM
   ]
@@ -15,8 +15,8 @@ post {
 
 headers {
   Authorization: {{authorization}}
-  Accept: 
   correlationId: {{correlationId}}
+  ~Accept: application/vnd.hmrc.2.0+json
 }
 
 body:json {
@@ -40,8 +40,8 @@ tests {
       expect(body.errors[0]).to.have.property("code", "ACCEPT_HEADER_INVALID");
       expect(body.errors[0]).to.have.property("message", "The accept header is missing or invalid");
   
-     // const expectedCorrelationId = bru.getVar("correlationId");
-     // expect(headers).to.have.property("correlationid", expectedCorrelationId);
+    //  const expectedCorrelationId = bru.getVar("correlationId");
+    //  expect(headers).to.have.property("correlationid", expectedCorrelationId);
   
     } else if (status === 404) {
       

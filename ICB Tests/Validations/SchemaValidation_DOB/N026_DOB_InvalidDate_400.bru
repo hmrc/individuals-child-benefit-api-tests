@@ -1,7 +1,7 @@
 meta {
-  name: N023_RequestBodyMissing
+  name: N026_DOB_InvalidDate_400
   type: http
-  seq: 5
+  seq: 3
   tags: [
     DOWNSTREAM
   ]
@@ -17,6 +17,16 @@ headers {
   Authorization: {{authorization}}
   Accept: application/vnd.hmrc.2.0+json
   correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Laura",
+    "secondName": "Taylor",
+    "dateOfBirth": "2020-11-31",
+    "nino": "AA000008A",
+    "bornOnOrAfter": "2025-12-01"
+  }
 }
 
 assert {

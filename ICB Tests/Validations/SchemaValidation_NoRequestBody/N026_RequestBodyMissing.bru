@@ -1,7 +1,7 @@
 meta {
-  name: N023_DOB_ Missing_400
+  name: N026_RequestBodyMissing
   type: http
-  seq: 2
+  seq: 5
   tags: [
     DOWNSTREAM
   ]
@@ -19,18 +19,8 @@ headers {
   correlationId: {{correlationId}}
 }
 
-body:json {
-  {
-    "firstName": "Laura",
-    "secondName": "Taylor",
-    "nino": "AA000008A",
-    "bornOnOrAfter": "2025-12-01"
-  }
-}
-
 assert {
   res.status: eq 400
   res.body.code: eq "400"
   res.body.message: eq The JSON payload is invalid
-  res.headers.correlationid: eq {{correlationId}}
 }

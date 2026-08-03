@@ -1,7 +1,7 @@
 meta {
-  name: N023_bornOnOrAfter_WrongPattern_400
+  name: N026_NINO_EmptyString_400
   type: http
-  seq: 1
+  seq: 2
   tags: [
     DOWNSTREAM
   ]
@@ -23,9 +23,9 @@ body:json {
   {
     "firstName": "Laura",
     "secondName": "Taylor",
+    "nino": "",
     "dateOfBirth": "1990-06-27",
-    "nino": "AA000008A",
-    "bornOnOrAfter": "01-12-2025"
+    "bornOnOrAfter": "2025-12-01"
   }
 }
 

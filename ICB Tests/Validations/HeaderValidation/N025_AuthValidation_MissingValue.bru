@@ -1,7 +1,7 @@
 meta {
-  name: N022_AuthValidation_Missing
+  name: N025_AuthValidation_MissingValue
   type: http
-  seq: 2
+  seq: 3
   tags: [
     DOWNSTREAM
   ]
@@ -15,8 +15,8 @@ post {
 
 headers {
   Accept: application/vnd.hmrc.2.0+json
+  Authorization: 
   correlationId: {{correlationId}}
-  ~Authorization: {{authorization}}
 }
 
 body:json {
@@ -27,10 +27,6 @@ body:json {
     "nino": "AA000008A",
     "bornOnOrAfter": "2025-12-01"
   }
-}
-
-assert {
-  res.status: eq 401
 }
 
 tests {

@@ -1,7 +1,7 @@
 meta {
-  name: N022_AcceptValidation_Invalid
+  name: N025_AcceptValidation_MissingValue
   type: http
-  seq: 5
+  seq: 7
   tags: [
     DOWNSTREAM
   ]
@@ -14,8 +14,8 @@ post {
 }
 
 headers {
-  Accept: application/json
   Authorization: {{authorization}}
+  Accept: 
   correlationId: {{correlationId}}
 }
 

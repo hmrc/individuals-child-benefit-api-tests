@@ -1,7 +1,7 @@
 meta {
-  name: N023_DOB_WrongPattern_400
+  name: N026_ExtraFieldInRequestBody
   type: http
-  seq: 1
+  seq: 2
   tags: [
     DOWNSTREAM
   ]
@@ -21,17 +21,17 @@ headers {
 
 body:json {
   {
-    "firstName": "Laura",
-    "secondName": "Taylor",
-    "dateOfBirth": "1990/06/27",
-    "nino": "AA000008A",
-    "bornOnOrAfter": "2025-12-01"
+    "firstName": "Robert",
+    "secondName": "Anderson",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000007A",
+    "bornOnOrAfter": "2025-12-31",
+    "startDate": "2023-12-12"
   }
 }
 
 assert {
-  res.status: eq 400
-  res.body.code: eq "400"
-  res.body.message: eq The JSON payload is invalid
+  res.status: eq 200
+  res.body.eligible: eq true
   res.headers.correlationid: eq {{correlationId}}
 }
