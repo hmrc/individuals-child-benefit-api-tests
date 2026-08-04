@@ -1,0 +1,38 @@
+meta {
+  name: N009_NoRelationshipDataFound
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Frank",
+    "secondName": "Smith",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000016A",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.eligible: eq false
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

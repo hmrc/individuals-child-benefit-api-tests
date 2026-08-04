@@ -1,0 +1,15 @@
+vars {
+  ENVIRONMENT: staging
+  api-host: https://api.staging.tax.service.gov.uk/individuals/child-benefit
+  acceptHeader: application/vnd.hmrc.2.0+json
+  context-path: child-verification/verify
+  totp: 86896878
+  authorization: Bearer f65e238724aa8d51c19c37db6a5a6c07
+}
+vars:secret [
+  clientSecret,
+  clientId,
+  ~totp,
+  TOTP_SECRET,
+  ~authorization
+]

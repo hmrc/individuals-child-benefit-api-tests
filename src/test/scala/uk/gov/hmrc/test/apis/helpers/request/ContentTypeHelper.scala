@@ -27,4 +27,8 @@ trait ContentTypeHelper {
 
   def withNoJsonContentTypeHeader(): HmrcRequestSpecBuilder =
     builder
+
+  def withCorrIdHeader(corrId: String): HmrcRequestSpecBuilder =
+    builder.withCorrIdHeader(corrId)
+
 }

@@ -1,0 +1,38 @@
+meta {
+  name: N004_Claimant_NINO_Mismatch
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Tom",
+    "secondName": "Andrews",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000012B",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+assert {
+  res.status: eq 404
+  res.body: isEmpty
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

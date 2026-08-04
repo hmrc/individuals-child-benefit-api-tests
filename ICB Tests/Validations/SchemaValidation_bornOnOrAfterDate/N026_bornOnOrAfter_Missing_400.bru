@@ -1,0 +1,36 @@
+meta {
+  name: N026_bornOnOrAfter_Missing_400
+  type: http
+  seq: 2
+  tags: [
+    DOWNSTREAM
+  ]
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Laura",
+    "secondName": "Taylor",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000008A"
+  }
+}
+
+assert {
+  res.status: eq 400
+  res.body.code: eq "400"
+  res.body.message: eq The JSON payload is invalid
+  res.headers.correlationid: eq {{correlationId}}
+}

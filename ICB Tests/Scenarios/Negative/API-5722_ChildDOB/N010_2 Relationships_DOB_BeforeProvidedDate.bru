@@ -1,0 +1,38 @@
+meta {
+  name: N010_2 Relationships_DOB_BeforeProvidedDate
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "James",
+    "secondName": "Brown",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000003A",
+    "bornOnOrAfter": "2024-06-28"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.eligible: eq false
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

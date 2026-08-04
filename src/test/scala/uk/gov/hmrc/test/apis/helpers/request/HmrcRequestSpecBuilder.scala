@@ -16,18 +16,26 @@
 
 package uk.gov.hmrc.test.apis.helpers.request
 
+import io.restassured.config.HeaderConfig.headerConfig
+import io.restassured.config.RestAssuredConfig.config
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.specification.RequestSpecification
 import io.restassured.http.ContentType
 
 class HmrcRequestSpecBuilder {
-
-  private var inner: RequestSpecBuilder   = new RequestSpecBuilder()
+  
+  private var inner: RequestSpecBuilder = new RequestSpecBuilder
   private var needsDefaultHeader: Boolean = true
 
   def build(): RequestSpecification = {
     applyDefaults();
     inner.build();
+  }
+
+  def reset(): HmrcRequestSpecBuilder = {
+    inner = new RequestSpecBuilder()
+    needsDefaultHeader = true
+    this
   }
 
   def applyDefaults(): Unit =
@@ -72,7 +80,18 @@ class HmrcRequestSpecBuilder {
   }
 
   def setAuth(token: String): HmrcRequestSpecBuilder = {
+    needsDefaultHeader = false
     inner = inner.addHeader("Authorization", token) // inner.setAuth(oauth2(token));
     this;
+  }
+
+  def setNoAuth(): HmrcRequestSpecBuilder = {
+    needsDefaultHeader = false
+    this
+  }
+
+  def withCorrIdHeader(corrId: String): HmrcRequestSpecBuilder = {
+    inner = inner.addHeader("CorrelationId", corrId)
+    this
   }
 }

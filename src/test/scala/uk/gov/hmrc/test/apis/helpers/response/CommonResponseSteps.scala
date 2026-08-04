@@ -18,7 +18,9 @@ package uk.gov.hmrc.test.apis.helpers.response
 
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.*
-import io.restassured.http.ContentType.JSON;
+import io.restassured.http.ContentType.JSON
+import org.jsoup.Connection.Request
+
 import java.util.Collections.singletonList;
 
 trait CommonResponseSteps {
@@ -26,6 +28,8 @@ trait CommonResponseSteps {
 
   def expectedHttpStatusCode(expectedStatus: Int): Unit =
     response().statusCode(equalTo(expectedStatus))
+
+  def expectedEmptyBody = response().body(is(emptyOrNullString()))
 
   def expectedContentType(expectedContentType: ContentType): Unit =
     response().contentType(equalTo(expectedContentType.getContentTypeStrings().apply(0)))
@@ -35,8 +39,16 @@ trait CommonResponseSteps {
     response().body(field, is(expectation))
   }
 
-  def expectedJsonErrorCode(expectedCode: String): Unit       = expectedJsonBodyField("code", expectedCode)
-  def expectedJsonMessage(expectedMessage: String): Unit      = expectedJsonBodyField("message", expectedMessage)
+  def expectedJsonErrorCode(expectedCode: String): Unit  = expectedJsonBodyField("code", expectedCode)
+  def expectedJsonMessage(expectedMessage: String): Unit = expectedJsonBodyField("message", expectedMessage)
+
+  def expectedJsonSuccessEligibleMessage(expectedResponseBody: Boolean): Unit =
+    expectedJsonBodyField("eligible", expectedResponseBody)
+
+  def expectedCorrelationId(corrId: String) = response().header("CorrelationId", is(corrId))
+
+  def expectedResponse(option: Option[String]): Unit = response().eq(option)
+
   def expectedArrayJsonErrorCode(expectedCode: String): Unit  =
     expectedJsonBodyField("errors.code", singletonList(expectedCode))
   def expectedArrayJsonMessage(expectedMessage: String): Unit =

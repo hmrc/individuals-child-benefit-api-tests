@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.test.apis.helpers.request
 
+import java.util.UUID
+
 trait AcceptHeaderHelper {
   self: RequestHelper =>
 
@@ -28,6 +30,17 @@ trait AcceptHeaderHelper {
   def withInvalidAcceptHeader(): HmrcRequestSpecBuilder =
     builder.setAccept("application/vnd.xyz.1.0+json")
 
-  def withNoAcceptHeader(): HmrcRequestSpecBuilder =
+  def withNoAcceptHeader(): HmrcRequestSpecBuilder = {
     builder.setNoAccept()
+  }
+
+  def withValidAcceptHeaderVersion2(): HmrcRequestSpecBuilder =
+    builder.setAccept("application/vnd.hmrc.2.0+json")
+
+  def withMissingAcceptHeaderValue(): HmrcRequestSpecBuilder = {
+    builder.setAccept("")
+  }
+
+  def withValidCorrID(): HmrcRequestSpecBuilder =
+    builder.withCorrIdHeader(UUID.randomUUID().toString)
 }

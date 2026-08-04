@@ -1,0 +1,54 @@
+meta {
+  name: N025_AcceptValidation_MissingValue
+  type: http
+  seq: 7
+  tags: [
+    DOWNSTREAM
+  ]
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: 
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Laura",
+    "secondName": "Taylor",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000008A",
+    "bornOnOrAfter": "2025-12-01"
+  }
+}
+
+tests {
+  test("Should validate response based on environment behavior (406 vs 404)", function() {
+    const status = res.getStatus();
+    const body = res.getBody();
+    const headers = res.getHeaders();
+  
+    if (status === 406) {
+      expect(body).to.have.property("errors").and.be.an("array");
+      expect(body.errors[0]).to.have.property("code", "ACCEPT_HEADER_INVALID");
+      expect(body.errors[0]).to.have.property("message", "The accept header is missing or invalid");
+    } else if (status === 404) {
+      console.warn("Detected Staging behavior: API returned a 404 instead of 406.");
+      expect(status).to.equal(404);
+      expect(body).to.be.an("object");
+      expect(body).to.have.property("code", "MATCHING_RESOURCE_NOT_FOUND");
+      expect(body).to.have.property("message", "A resource with the name in the request can not be found in the API");
+  
+    } else {
+      fail(`Unexpected status code received: ${status}`);
+    }
+  });
+  
+}

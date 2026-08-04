@@ -1,0 +1,38 @@
+meta {
+  name: N017_500
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Jess",
+    "secondName": "Bird",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000020A",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+assert {
+  res.status: eq 500
+  res.body: isEmpty
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,59 @@
+meta {
+  name: N018_404
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Kyle",
+    "secondName": "Parker",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000028A",
+    "bornOnOrAfter": "2023-05-01"
+  }
+}
+
+tests {
+  test("Should validate 502/503 downstream failure conditionally across environments", function() {
+    const status = res.getStatus();
+    const body = res.getBody();
+    const headers = res.getHeaders();
+  
+  
+    if (status === 502) {
+      expect(body).to.be.an("object");
+      expect(body).to.have.property("code", "DOWNSTREAM_ERROR");
+      expect(body).to.have.property("message", "A downstream service is currently unavailable");
+      const expectedCorrelationId = bru.getVar("correlationId");
+      expect(headers).to.have.property("correlationid", expectedCorrelationId);
+  
+    } else if (status === 503) {
+      expect(body).to.be.an("object");
+      expect(body).to.have.property("code", "SERVER_ERROR");
+      expect(body).to.have.property("message", "Service unavailable");
+  
+      console.warn("Detected Staging infrastructure intercept: 502 upstream translated to 503 SERVER_ERROR.");
+  
+    } else {
+      fail(`Unexpected status code received: ${status}`);
+    }
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

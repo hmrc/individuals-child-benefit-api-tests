@@ -1,0 +1,42 @@
+meta {
+  name: Local
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8585/application/session/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientId": "{{$guid}}",
+    "authProvider": "PrivilegedApplication",
+    "applicationId": "{{$guid}}",
+    "applicationName": "DESNZ Child Benefit Verification API",
+    "enrolments": [],
+    "ttl": 5000
+  }
+}
+
+script:pre-request {
+  if (bru.getEnvVar("ENVIRONMENT") !== 'local') {
+    if (req.getExecutionMode() == "standalone") {
+      throw new Error('Environment must be set to Local');
+    } else {
+      bru.runner.skipRequest();
+      return;
+    }
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const authToken = res.getHeader('authorization');
+    bru.setEnvVar('authorization', authToken);
+  } else {
+      throw new Error('Authentication failed');
+  }
+}

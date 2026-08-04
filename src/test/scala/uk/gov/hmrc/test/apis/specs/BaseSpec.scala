@@ -19,5 +19,6 @@ package uk.gov.hmrc.test.apis.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.GivenWhenThen
+import org.scalatest.prop.TableDrivenPropertyChecks
 
-open class BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {}
+open class BaseSpec extends AnyFeatureSpec with GivenWhenThen with TableDrivenPropertyChecks with Matchers {}

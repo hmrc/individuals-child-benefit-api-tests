@@ -1,0 +1,26 @@
+meta {
+  name: N026_RequestBodyMissing
+  type: http
+  seq: 5
+  tags: [
+    DOWNSTREAM
+  ]
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+assert {
+  res.status: eq 400
+  res.body.code: eq "400"
+  res.body.message: eq The JSON payload is invalid
+}
