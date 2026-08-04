@@ -8,118 +8,146 @@ import java.util.UUID
 
 class N025_HeaderAcceptValidationSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
-  val corrId = UUID.randomUUID().toString
-
   override def beforeEach(): Unit = {
     super.beforeEach()
     builder.reset()
-    Given("I have a valid bearer token for my privileged application")
-    authenticate()
-
-    And("I have a valid JSON content type header")
-    withJsonContentTypeHeader()
-
-    And("I have a valid correlation Id header")
-    withCorrIdHeader(corrId)
   }
 
-  Feature("Accept validation Failure - Header Validation Scenario") {
+  Feature("N025_Accept validation Failure - Header Validation Scenario") {
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
       ("Error : ", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 406)
     )
 
-      forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
-        Scenario(scenario + "Accept is invalid in request header") {
+    forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
+      Scenario(scenario + "Accept is invalid in request header") {
 
-          Given("I have a invalid accept header")
-          withInvalidAcceptHeader()
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
 
-          When("I make a request to the child verification endpoint with a valid payload")
-          iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-            firstName,
-            secondName,
-            dateOfBirth,
-            nino,
-            bornOnOrAfter
-          )
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
 
-          Then("I get a error response")
-          expectedHttpStatusCode(responseStatusCode)
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
 
-          And("Error response must contain correct json body")
-          expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
-          expectedArrayJsonMessage("The accept header is missing or invalid")
+        And("I have a invalid accept header")
+        withInvalidAcceptHeader()
 
-        }
+        When("I make a request to the child verification endpoint with a valid payload")
+        iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
+          firstName,
+          secondName,
+          dateOfBirth,
+          nino,
+          bornOnOrAfter
+        )
 
-        Scenario(scenario + "Accept is missing in request header") {
-          withNoAcceptHeader()
+        Then("I get a error response")
+        expectedHttpStatusCode(responseStatusCode)
 
-          When("I make a request to the child verification endpoint with a valid payload")
-          iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-            firstName,
-            secondName,
-            dateOfBirth,
-            nino,
-            bornOnOrAfter
-          )
+        And("Error response must contain correct json body")
+        expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
+        expectedArrayJsonMessage("The accept header is missing or invalid")
+      }
 
-          Then("I get a error response")
-          expectedHttpStatusCode(responseStatusCode)
+      Scenario(scenario + "Accept is missing in request header") {
+        withNoAcceptHeader()
 
-          And("Error response must contain correct json body")
-          expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
-          expectedArrayJsonMessage("The accept header is missing or invalid")
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
 
-        }
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
 
-        Scenario(scenario + "Accept is incorrect in request header") {
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
 
-          Given("I have a invalid accept header")
-          withIncorrectAcceptHeaderVersion()
+        When("I make a request to the child verification endpoint with a valid payload")
+        iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
+          firstName,
+          secondName,
+          dateOfBirth,
+          nino,
+          bornOnOrAfter
+        )
 
-          When("I make a request to the child verification endpoint with a valid payload")
-          iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-            firstName,
-            secondName,
-            dateOfBirth,
-            nino,
-            bornOnOrAfter
-          )
+        Then("I get a error response")
+        expectedHttpStatusCode(responseStatusCode)
 
-          Then("I get a error response")
-          expectedHttpStatusCode(responseStatusCode)
+        And("Error response must contain correct json body")
+        expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
+        expectedArrayJsonMessage("The accept header is missing or invalid")
 
-          And("Error response must contain correct json body")
-          expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
-          expectedArrayJsonMessage("The accept header is missing or invalid")
+      }
 
-        }
+      Scenario(scenario + "Accept is incorrect in request header") {
 
-        Scenario(scenario + "Accept value is missing in request header") {
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
 
-          And("I have a invalid accept header")
-          withMissingAcceptHeaderValue()
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
 
-          When("I make a request to the child verification endpoint with a valid payload")
-          iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
-            firstName,
-            secondName,
-            dateOfBirth,
-            nino,
-            bornOnOrAfter
-          )
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
 
-          Then("I get a error response")
-          expectedHttpStatusCode(responseStatusCode)
+        And("I have a invalid accept header")
+        withIncorrectAcceptHeaderVersion()
 
-          And("Error response must contain correct json body")
-          expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
-          expectedArrayJsonMessage("The accept header is missing or invalid")
+        When("I make a request to the child verification endpoint with a valid payload")
+        iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
+          firstName,
+          secondName,
+          dateOfBirth,
+          nino,
+          bornOnOrAfter
+        )
 
-        }
+        Then("I get a error response")
+        expectedHttpStatusCode(responseStatusCode)
+
+        And("Error response must contain correct json body")
+        expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
+        expectedArrayJsonMessage("The accept header is missing or invalid")
+
+      }
+
+      Scenario(scenario + "Accept value is missing in request header") {
+
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
+
+        And("I have a invalid accept header")
+        withMissingAcceptHeaderValue()
+
+        When("I make a request to the child verification endpoint with a valid payload")
+        iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
+          firstName,
+          secondName,
+          dateOfBirth,
+          nino,
+          bornOnOrAfter
+        )
+
+        Then("I get a error response")
+        expectedHttpStatusCode(responseStatusCode)
+
+        And("Error response must contain correct json body")
+        expectedArrayJsonErrorCode("ACCEPT_HEADER_INVALID")
+        expectedArrayJsonMessage("The accept header is missing or invalid")
       }
     }
   }
+}

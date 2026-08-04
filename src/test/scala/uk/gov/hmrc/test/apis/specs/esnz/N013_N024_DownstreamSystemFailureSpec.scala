@@ -8,25 +8,12 @@ import java.util.UUID
 
 class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
-  val corrId = UUID.randomUUID().toString
-
   override def beforeEach(): Unit = {
     super.beforeEach()
     builder.reset()
-    Given("I have a valid bearer token for my privileged application")
-    authenticate()
-
-    And("I have a valid accept header")
-    withValidAcceptHeaderVersion2()
-
-    And("I have a valid JSON content type header")
-    withJsonContentTypeHeader()
-
-    And("I have a valid correlation Id header")
-    withCorrIdHeader(corrId)
   }
 
-  Feature("Handling downstream service failures such as HTTP 500, 503 and 404 responses") {
+  Feature("N013-N024_Handling downstream service failures such as HTTP 500, 503 and 404 responses") {
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
@@ -110,11 +97,51 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "AA000029A",
         "2023-05-01",
         200
+      ),
+      (
+        "Failure : N022_Citizen Details API returns 504 gateway timeout response",
+        "Michael",
+        "Johnson",
+        "1990-06-27",
+        "AA000030A",
+        "2023-05-01",
+        504
+      ),
+      (
+        "Failure : N023_Individual Relationship Details API returns 504 gateway timeout response",
+        "Raymond",
+        "Reddington",
+        "1990-06-27",
+        "AA000031A",
+        "2023-05-01",
+        504
+      ),
+      (
+        "Failure : N024_Child DOB API returns 504 gateway timeout response",
+        "Raymond",
+        "Reddington",
+        "1990-06-27",
+        "AA000032A",
+        "2023-05-01",
+        504
       )
     )
 
     forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
       Scenario(scenario) {
+
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
+
+        And("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
 
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
@@ -138,7 +165,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
           expectedEmptyBody
         }
 
-        And("Response correlationId is same as Request correlationId")
+        And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
 
       }

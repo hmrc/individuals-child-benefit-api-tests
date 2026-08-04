@@ -8,25 +8,12 @@ import java.util.UUID
 
 class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
-  val corrId = UUID.randomUUID().toString
-
   override def beforeEach(): Unit = {
     super.beforeEach()
     builder.reset()
-    Given("I have a valid bearer token for my privileged application")
-    authenticate()
-
-    And("I have a valid accept header")
-    withValidAcceptHeaderVersion2()
-
-    And("I have a valid JSON content type header")
-    withJsonContentTypeHeader()
-
-    And("I have a valid correlation Id header")
-    withCorrIdHeader(corrId)
   }
 
-  Feature("Claimant's child DOB check failures - Negative Path Scenarios") {
+  Feature("N010-N012_Claimant's child DOB check failures - Negative Path Scenarios") {
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
@@ -53,6 +40,19 @@ class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with 
     forAll(happyPathData) { (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
       Scenario(scenario) {
 
+        Given("I have a valid bearer token for my privileged application")
+        authenticate()
+
+        And("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
+
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
           firstName,
@@ -72,7 +72,7 @@ class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with 
           expectedEmptyBody
         }
 
-        And("Response correlationId is same as Request correlationId")
+        And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
 
       }

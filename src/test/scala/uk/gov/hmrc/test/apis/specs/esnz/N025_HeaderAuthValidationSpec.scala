@@ -8,22 +8,12 @@ import java.util.UUID
 
 class N025_HeaderAuthValidationSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
-  val corrId = UUID.randomUUID().toString
-  
   override def beforeEach(): Unit = {
     super.beforeEach()
     builder.reset()
-    Given("I have a valid accept header")
-    withValidAcceptHeaderVersion2()
-
-    And("I have a valid JSON content type header")
-    withJsonContentTypeHeader()
-
-    And("I have a valid correlation Id header")
-    withCorrIdHeader(corrId)
   }
 
-  Feature("Auth validation Failure - Header Validation Scenario") {
+  Feature("N025_Auth validation Failure - Header Validation Scenario") {
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
@@ -34,7 +24,17 @@ class N025_HeaderAuthValidationSpec extends BaseSpec with CommonSteps with Befor
 
       Scenario(scenario + "Authorisation is invalid in request header") {
 
-        Given("I have a invalid bearer token for my privileged application")
+        Given("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
+
+        And("I have a invalid bearer token for my privileged application")
         withInvalidAuthHeader()
 
         When("I make a request to the child verification endpoint with a valid payload")
@@ -52,13 +52,23 @@ class N025_HeaderAuthValidationSpec extends BaseSpec with CommonSteps with Befor
         And("No error body is return")
         expectedEmptyBody
 
-        And("Response correlationId is same as Request correlationId")
+        And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
       }
 
       Scenario(scenario + "Authorisation is missing in request header") {
         withNoAuthHeader()
-        
+
+        Given("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
+
         When("I make a request to the child verification endpoint with a valid payload")
         iMakeARequestToTheChildVerificationEndpointWithAValidPayload(
           firstName,
@@ -74,12 +84,22 @@ class N025_HeaderAuthValidationSpec extends BaseSpec with CommonSteps with Befor
         And("No error body is return")
         expectedEmptyBody
 
-        And("Response correlationId is same as Request correlationId")
+        And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
 
       }
 
       Scenario(scenario + "Authorisation is expired in request header") {
+
+        Given("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
 
         Given("I have a expired bearer token for my privileged application")
         withExpiredAuthHeader()
@@ -99,12 +119,21 @@ class N025_HeaderAuthValidationSpec extends BaseSpec with CommonSteps with Befor
         And("No error body is return")
         expectedEmptyBody
 
-        And("Response correlationId is same as Request correlationId")
+        And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
-
       }
 
       Scenario(scenario + "Authorisation value is missing in request header") {
+
+        Given("I have a valid accept header")
+        withValidAcceptHeaderVersion2()
+
+        And("I have a valid JSON content type header")
+        withJsonContentTypeHeader()
+
+        And("I have a valid correlation Id header")
+        val corrId = UUID.randomUUID().toString
+        withCorrIdHeader(corrId)
 
         Given("I have a missing bearer token value  for my privileged application")
         withMissingAuthHeaderValue()
@@ -124,9 +153,8 @@ class N025_HeaderAuthValidationSpec extends BaseSpec with CommonSteps with Befor
         And("No error body is return")
         expectedEmptyBody
 
-        And("Response correlationId is same as Request correlationId")
+        And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
-
       }
     }
   }
