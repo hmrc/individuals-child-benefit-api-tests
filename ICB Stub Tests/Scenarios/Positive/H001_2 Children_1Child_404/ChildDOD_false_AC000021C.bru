@@ -1,0 +1,16 @@
+meta {
+  name: ChildDOD_false_AC000021C
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{childDOB-api-host}}/{{childDOB-api-path}}/AC000021C/date-of-death
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

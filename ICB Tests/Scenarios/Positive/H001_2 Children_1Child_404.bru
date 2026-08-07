@@ -1,0 +1,38 @@
+meta {
+  name: H001_2 Children_1Child_404
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: application/vnd.hmrc.2.0+json
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Tarana",
+    "secondName": "Basin",
+    "dateOfBirth": "1990-06-01",
+    "nino": "AA000033A",
+    "bornOnOrAfter": "2026-01-20"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.eligible: eq true
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
