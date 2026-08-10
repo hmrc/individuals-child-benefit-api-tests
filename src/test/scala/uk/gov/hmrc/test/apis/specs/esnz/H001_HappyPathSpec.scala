@@ -51,21 +51,30 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         200
       ),
       (
-        "Success : 4 Children DOB After & Before Provided Date",
+        "Success : 4 Children DOB Before & On Provided Date with one child having DOD",
         "Tom",
         "Andrews",
         "1990-06-27",
         "AA000014A",
-        "2023-05-01",
+        "2024-06-27",
         200
       ),
       (
-        "Success : 3 Children DOB On Provided Date with DOD",
+        "Success : 3 Children DOB Before, After & On Provided Date with DOD",
         "Hannah",
         "White",
         "1990-06-27",
         "AA000012A",
         "2024-06-27",
+        200
+      ),
+      (
+        "Success : 2 Children DOB After Provided Date & one child response is 404",
+        "Tarana",
+        "Basin",
+        "1990-06-01",
+        "AA000033A",
+        "2026-01-20",
         200
       )
     )

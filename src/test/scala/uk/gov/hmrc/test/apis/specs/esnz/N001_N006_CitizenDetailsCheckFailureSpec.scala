@@ -100,6 +100,5 @@ class N001_N006_CitizenDetailsCheckFailureSpec extends BaseSpec with CommonSteps
 
       }
     }
-
   }
 }

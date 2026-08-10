@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.test.apis.helpers.request
 
-import io.restassured.config.HeaderConfig.headerConfig
-import io.restassured.config.RestAssuredConfig.config
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.specification.RequestSpecification
 import io.restassured.http.ContentType

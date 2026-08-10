@@ -19,8 +19,6 @@ package uk.gov.hmrc.test.apis.helpers.response
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.*
 import io.restassured.http.ContentType.JSON
-import org.jsoup.Connection.Request
-
 import java.util.Collections.singletonList;
 
 trait CommonResponseSteps {
@@ -79,5 +77,4 @@ trait CommonResponseSteps {
     expectedHttpStatusCode(415)
     expectedArrayJsonMessage("Expecting text/json or application/json body")
   }
-
 }
