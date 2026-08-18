@@ -167,7 +167,6 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
 
         And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
-
       }
     }
   }

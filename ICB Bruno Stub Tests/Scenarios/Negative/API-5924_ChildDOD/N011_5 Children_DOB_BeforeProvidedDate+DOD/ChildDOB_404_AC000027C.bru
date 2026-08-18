@@ -1,0 +1,16 @@
+meta {
+  name: ChildDOB_404_AC000027C
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{childDOB-api-host}}/{{childDOB-api-path}}/AC000027C/date-of-birth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,16 @@
+meta {
+  name: ChildDOB_BeforeProvidedDate_AC000013C
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{childDOB-api-host}}/{{childDOB-api-path}}/AC000013C/date-of-birth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

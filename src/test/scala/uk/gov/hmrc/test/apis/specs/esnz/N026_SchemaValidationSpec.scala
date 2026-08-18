@@ -47,7 +47,6 @@ class N026_SchemaValidationSpec extends BaseSpec with CommonSteps with BeforeAnd
 
     forAll(schemaValidationData) {
       (scenario, firstName, secondName, dateOfBirth, nino, bornOnOrAfter, responseStatusCode) =>
-
         Scenario(scenario) {
 
           Given("I have a valid bearer token for my privileged application")

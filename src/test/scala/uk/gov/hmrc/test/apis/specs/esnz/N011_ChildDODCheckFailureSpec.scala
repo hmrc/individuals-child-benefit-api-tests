@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.BeforeAndAfterEach
@@ -6,42 +22,42 @@ import uk.gov.hmrc.test.apis.steps.CommonSteps
 
 import java.util.UUID
 
-class N007_N009_IndividualRelationshipFailureSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
+class N011_ChildDODCheckFailureSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     builder.reset()
   }
 
-  Feature("N007-N009_Claimant's relationship type and source check failures - Negative Path Scenarios") {
+  Feature("N011_Claimant's child DOD check failures - Negative Path Scenarios") {
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
       (
-        "Failure : N007_Claimant's relationship type and source are not classified as expected",
-        "Michael",
-        "Johnson",
+        "Failure : N011_1 child DOB after provided date with ODD",
+        "Andrew",
+        "Harris",
         "1990-06-27",
-        "AA000001A",
-        "2023-05-01",
+        "AA000013A",
+        "2023-01-01",
         200
       ),
       (
-        "Failure : N008_Claimant's relationship source is not classified as expected",
-        "Jess",
-        "Bird",
+        "Failure : N011_1 child DOB before provided date with ODD",
+        "Andrew",
+        "Harris",
         "1990-06-27",
-        "AA000018A",
-        "2023-05-01",
+        "AA000013A",
+        "2023-06-28",
         200
       ),
       (
-        "Failure : N008_Claimant's relationship data not found",
-        "Frank",
-        "Smith",
-        "1990-06-27",
-        "AA000016A",
-        "2023-05-01",
+        "Failure : N011_4 children DOB before &after provided date with ODD",
+        "Jacob",
+        "Jackson",
+        "2000-06-01",
+        "AA000034A",
+        "2026-01-01",
         200
       )
     )
@@ -75,10 +91,15 @@ class N007_N009_IndividualRelationshipFailureSpec extends BaseSpec with CommonSt
         expectedHttpStatusCode(responseStatusCode)
 
         And("Success response must contain correct json body")
-        expectedJsonSuccessEligibleMessage(false)
+        if (responseStatusCode == 200) {
+          expectedJsonSuccessEligibleMessage(false)
+        } else {
+          expectedEmptyBody
+        }
 
         And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
+
       }
     }
   }

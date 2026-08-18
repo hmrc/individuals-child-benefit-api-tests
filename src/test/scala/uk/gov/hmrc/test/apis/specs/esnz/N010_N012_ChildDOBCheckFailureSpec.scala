@@ -18,7 +18,7 @@ class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "responseCode"),
       (
-        "Failure : N010_Claimant's child is born before the provided date",
+        "Failure : N010_Claimant's child DOB before provided date",
         "James",
         "Brown",
         "1990-06-27",
@@ -74,7 +74,6 @@ class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with 
 
         And("CorrelationId in response header is same as correlationId in request header")
         expectedCorrelationId(corrId)
-
       }
     }
   }

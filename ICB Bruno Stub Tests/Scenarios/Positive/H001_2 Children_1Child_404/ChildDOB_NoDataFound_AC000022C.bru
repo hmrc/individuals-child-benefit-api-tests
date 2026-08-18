@@ -1,0 +1,16 @@
+meta {
+  name: ChildDOB_NoDataFound_AC000022C
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{childDOB-api-host}}/{{childDOB-api-path}}/AC000022C/date-of-birth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
