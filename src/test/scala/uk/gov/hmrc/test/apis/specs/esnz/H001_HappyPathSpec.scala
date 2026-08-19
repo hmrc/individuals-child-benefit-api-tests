@@ -19,6 +19,7 @@ import uk.gov.hmrc.test.apis.steps.CommonSteps
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 
 import java.util.UUID
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 
 class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
@@ -37,7 +38,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Robert",
         "Anderson",
         "1990-06-27",
-        "AA000007A",
+        NinoPrefixGenerator.generateFirst5() + "007A",
         "2025-12-31",
         200
       ),
@@ -46,7 +47,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Daniel",
         "Jackson",
         "1990-06-27",
-        "AA000011A",
+        NinoPrefixGenerator.generateFirst5() + "011A",
         "2018-01-01",
         200
       ),
@@ -55,7 +56,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Tom",
         "Andrews",
         "1990-06-27",
-        "AA000014A",
+        NinoPrefixGenerator.generateFirst5() +"014A",
         "2024-06-27",
         200
       ),
@@ -64,7 +65,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Hannah",
         "White",
         "1990-06-27",
-        "AA000012A",
+        NinoPrefixGenerator.generateFirst5() + "012A",
         "2024-06-27",
         200
       ),
@@ -73,7 +74,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Tarana",
         "Basin",
         "1990-06-01",
-        "AA000033A",
+        NinoPrefixGenerator.generateFirst5() + "033A",
         "2026-01-20",
         200
       )
