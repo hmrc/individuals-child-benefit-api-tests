@@ -1,6 +1,23 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.BeforeAndAfterEach
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 
@@ -22,7 +39,7 @@ class N007_N009_IndividualRelationshipFailureSpec extends BaseSpec with CommonSt
         "Michael",
         "Johnson",
         "1990-06-27",
-        "AA000001A",
+        NinoPrefixGenerator.generateFirst5() + "001A",
         "2023-05-01",
         200
       ),
@@ -31,7 +48,7 @@ class N007_N009_IndividualRelationshipFailureSpec extends BaseSpec with CommonSt
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000018A",
+        NinoPrefixGenerator.generateFirst5() + "018A",
         "2023-05-01",
         200
       ),
@@ -40,7 +57,7 @@ class N007_N009_IndividualRelationshipFailureSpec extends BaseSpec with CommonSt
         "Frank",
         "Smith",
         "1990-06-27",
-        "AA000016A",
+        NinoPrefixGenerator.generateFirst5() + "016A",
         "2023-05-01",
         200
       )

@@ -17,6 +17,7 @@
 package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.BeforeAndAfterEach
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 
@@ -38,7 +39,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Michael",
         "Johnson",
         "1990-06-27",
-        "AA000035A",
+        NinoPrefixGenerator.generateFirst5() + "035A",
         "2023-05-01",
         503
       ),
@@ -47,7 +48,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Michael",
         "Johnson",
         "1990-06-27",
-        "AA000026A",
+        NinoPrefixGenerator.generateFirst5() + "026A",
         "2023-05-01",
         500
       ),
@@ -56,7 +57,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Michael",
         "Johnson",
         "1990-06-27",
-        "AA000025A",
+        NinoPrefixGenerator.generateFirst5() + "025A",
         "2023-05-01",
         404
       ),
@@ -65,7 +66,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000019A",
+        NinoPrefixGenerator.generateFirst5() + "019A",
         "2023-05-01",
         503
       ),
@@ -74,7 +75,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000020A",
+        NinoPrefixGenerator.generateFirst5() + "020A",
         "2023-05-01",
         500
       ),
@@ -83,7 +84,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Kyle",
         "Parker",
         "1990-06-27",
-        "AA000028A",
+        NinoPrefixGenerator.generateFirst5() + "028A",
         "2023-05-01",
         502
       ),
@@ -92,7 +93,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000021A",
+        NinoPrefixGenerator.generateFirst5() + "021A",
         "2023-05-01",
         503
       ),
@@ -101,7 +102,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000022A",
+        NinoPrefixGenerator.generateFirst5() + "022A",
         "2023-05-01",
         500
       ),
@@ -110,7 +111,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Raymond",
         "Reddington",
         "1990-06-27",
-        "AA000029A",
+        NinoPrefixGenerator.generateFirst5() + "029A",
         "2023-05-01",
         200
       ),
@@ -119,7 +120,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Michael",
         "Johnson",
         "1990-06-27",
-        "AA000030A",
+        NinoPrefixGenerator.generateFirst5() + "030A",
         "2023-05-01",
         504
       ),
@@ -128,7 +129,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Raymond",
         "Reddington",
         "1990-06-27",
-        "AA000031A",
+        NinoPrefixGenerator.generateFirst5() + "031A",
         "2023-05-01",
         504
       ),
@@ -137,7 +138,7 @@ class N013_N024_DownstreamSystemFailureSpec extends BaseSpec with CommonSteps wi
         "Raymond",
         "Reddington",
         "1990-06-27",
-        "AA000032A",
+        NinoPrefixGenerator.generateFirst5() + "032A",
         "2023-05-01",
         504
       )

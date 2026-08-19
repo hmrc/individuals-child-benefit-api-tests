@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package uk.gov.hmrc.test.apis.specs.esnz
 import org.scalatest.BeforeAndAfterEach
 import uk.gov.hmrc.test.apis.steps.CommonSteps
@@ -32,7 +33,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "statusCode"),
-      ("Success : 1 child DOB on the provided date", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 200),
+      ("Success : 1 child DOB on the provided date", "Laura", "Taylor", "1990-06-27", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 200),
       (
         "Success : 2 Children DOB After & Before Provided Date",
         "Robert",

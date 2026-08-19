@@ -17,6 +17,7 @@
 package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.BeforeAndAfterEach
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 
@@ -38,7 +39,7 @@ class N011_ChildDODCheckFailureSpec extends BaseSpec with CommonSteps with Befor
         "Andrew",
         "Harris",
         "1990-06-27",
-        "AA000013A",
+        NinoPrefixGenerator.generateFirst5() + "013A",
         "2023-01-01",
         200
       ),
@@ -47,7 +48,7 @@ class N011_ChildDODCheckFailureSpec extends BaseSpec with CommonSteps with Befor
         "Andrew",
         "Harris",
         "1990-06-27",
-        "AA000013A",
+        NinoPrefixGenerator.generateFirst5() + "013A",
         "2023-06-28",
         200
       ),
@@ -56,7 +57,7 @@ class N011_ChildDODCheckFailureSpec extends BaseSpec with CommonSteps with Befor
         "Jacob",
         "Jackson",
         "2000-06-01",
-        "AA000034A",
+        NinoPrefixGenerator.generateFirst5() + "034A",
         "2026-01-01",
         200
       )
