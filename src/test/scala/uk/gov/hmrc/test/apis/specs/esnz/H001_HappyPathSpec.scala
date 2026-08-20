@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package uk.gov.hmrc.test.apis.specs.esnz
 import org.scalatest.BeforeAndAfterEach
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 
 import java.util.UUID
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 
 class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEach {
 
@@ -31,13 +33,13 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
 
     val happyPathData = Table(
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "statusCode"),
-      ("Success : 1 child DOB on the provided date", "Laura", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 200),
+      ("Success : 1 child DOB on the provided date", "Laura", "Taylor", "1990-06-27", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 200),
       (
         "Success : 2 Children DOB After & Before Provided Date",
         "Robert",
         "Anderson",
         "1990-06-27",
-        "AA000007A",
+        NinoPrefixGenerator.generateFirst5() + "007A",
         "2025-12-31",
         200
       ),
@@ -46,7 +48,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Daniel",
         "Jackson",
         "1990-06-27",
-        "AA000011A",
+        NinoPrefixGenerator.generateFirst5() + "011A",
         "2018-01-01",
         200
       ),
@@ -55,7 +57,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Tom",
         "Andrews",
         "1990-06-27",
-        "AA000014A",
+        NinoPrefixGenerator.generateFirst5() +"014A",
         "2024-06-27",
         200
       ),
@@ -64,7 +66,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Hannah",
         "White",
         "1990-06-27",
-        "AA000012A",
+        NinoPrefixGenerator.generateFirst5() + "012A",
         "2024-06-27",
         200
       ),
@@ -73,7 +75,7 @@ class H001_HappyPathSpec extends BaseSpec with CommonSteps with BeforeAndAfterEa
         "Tarana",
         "Basin",
         "1990-06-01",
-        "AA000033A",
+        NinoPrefixGenerator.generateFirst5() + "033A",
         "2026-01-20",
         200
       )

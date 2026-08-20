@@ -1,11 +1,11 @@
 meta {
-  name: N022_AA000030A_504
+  name: N022_{{generatedNino}}030A_504
   type: http
   seq: 4
 }
 
 get {
-  url: {{citizen-api-host}}/{{citizen-api-path}}/AA000030A
+  url: {{citizen-api-host}}/{{citizen-api-path}}/{{generatedNino}}030A
   body: none
   auth: inherit
 }

@@ -1,6 +1,23 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.BeforeAndAfterEach
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 
@@ -22,7 +39,7 @@ class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with 
         "James",
         "Brown",
         "1990-06-27",
-        "AA000003A",
+        NinoPrefixGenerator.generateFirst5() + "003A",
         "2024-06-28",
         200
       ),
@@ -31,7 +48,7 @@ class N010_N012_ChildDOBCheckFailureSpec extends BaseSpec with CommonSteps with 
         "Jess",
         "Bird",
         "1990-06-27",
-        "AA000017A",
+        NinoPrefixGenerator.generateFirst5() + "017A",
         "2025-06-01",
         500
       )

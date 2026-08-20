@@ -1,6 +1,23 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.BeforeAndAfterEach
+import uk.gov.hmrc.test.apis.helpers.NinoPrefixGenerator
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.CommonSteps
 
@@ -18,31 +35,31 @@ class N026_SchemaValidationSpec extends BaseSpec with CommonSteps with BeforeAnd
       ("scenario", "firstName", "secondName", "dateOfBirth", "nino", "bornOnOrAfter", "statusCode"),
       ("Nino value is empty in request body", "Laura", "Taylor", "1990-06-27", "", "2025-12-01", 400),
       ("Nino invalid regex value in request body", "Laura", "Taylor", "1990-06-27", "AA00A008A", "2025-12-01", 400),
-      ("FirstName value is missing in request body", "", "Taylor", "1990-06-27", "AA000008A", "2025-12-01", 400),
+      ("FirstName value is missing in request body", "", "Taylor", "1990-06-27", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 400),
       (
         "FirstName value is more than 35 char in request body",
         "LauraLauraLauraLauraLauraLauraLaura1",
         "Taylor",
         "1990-06-27",
-        "AA000008A",
+        NinoPrefixGenerator.generateFirst5() + "008A",
         "2025-12-01",
         400
       ),
-      ("SecondName value is missing in request body", "Laura", "", "1990-06-27", "AA000008A", "2025-12-01", 400),
+      ("SecondName value is missing in request body", "Laura", "", "1990-06-27", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 400),
       (
         "SecondName value is more than 35 char in request body",
         "Laura",
         "TaylorTaylorTaylorTaylorTaylorTaylor",
         "1990-06-27",
-        "AA000008A",
+        NinoPrefixGenerator.generateFirst5() + "008A",
         "2025-12-01",
         400
       ),
-      ("DOB value is missing in request body", "Laura", "Taylor", "", "AA000008A", "2025-12-01", 400),
-      ("DOB's invalid regex in request body", "Laura", "Taylor", "1990/06/27", "AA000008A", "2025-12-01", 400),
-      ("DOB's value is incorrect in request body", "Laura", "Taylor", "1990-09-31", "AA000008A", "2025-12-01", 400),
-      ("bornOnOrAfter value is missing  in request body", "Laura", "Taylor", "1990-06-27", "AA000008A", "", 400),
-      ("bornOnOrAfter is invalid regex in request body", "Laura", "Taylor", "127-06-2020", "AA000008A", "", 400)
+      ("DOB value is missing in request body", "Laura", "Taylor", "", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 400),
+      ("DOB's invalid regex in request body", "Laura", "Taylor", "1990/06/27", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 400),
+      ("DOB's value is incorrect in request body", "Laura", "Taylor", "1990-09-31", NinoPrefixGenerator.generateFirst5() + "008A", "2025-12-01", 400),
+      ("bornOnOrAfter value is missing  in request body", "Laura", "Taylor", "1990-06-27", NinoPrefixGenerator.generateFirst5() + "008A", "", 400),
+      ("bornOnOrAfter is invalid regex in request body", "Laura", "Taylor", "127-06-2020", NinoPrefixGenerator.generateFirst5() + "008A", "", 400)
     )
 
     forAll(schemaValidationData) {
