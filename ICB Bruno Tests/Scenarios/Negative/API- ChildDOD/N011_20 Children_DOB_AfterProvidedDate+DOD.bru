@@ -1,0 +1,38 @@
+meta {
+  name: N011_20 Children_DOB_AfterProvidedDate+DOD
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{api-host}}/{{context-path}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: {{authorization}}
+  Accept: {{acceptHeader}}
+  correlationId: {{correlationId}}
+}
+
+body:json {
+  {
+    "firstName": "Performance",
+    "secondName": "Tester",
+    "dateOfBirth": "1990-06-27",
+    "nino": "AA000099A",
+    "bornOnOrAfter": "2019-12-01"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.eligible: eq false
+  res.headers.correlationid: eq {{correlationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
