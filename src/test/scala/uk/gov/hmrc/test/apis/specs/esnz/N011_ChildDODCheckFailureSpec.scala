@@ -60,6 +60,15 @@ class N011_ChildDODCheckFailureSpec extends BaseSpec with CommonSteps with Befor
         NinoPrefixGenerator.generateFirst5() + "034A",
         "2026-01-01",
         200
+      ),
+      (
+        "Failure : N011_20 children DOB after provided date with ODD",
+        "Performance",
+        "Tester",
+        "1990-06-27",
+        "AA000099A",
+        "2019-12-01",
+        200
       )
     )
 
