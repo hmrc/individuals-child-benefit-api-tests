@@ -1,7 +1,7 @@
 meta {
-  name: N011_20 Children_ResponseDelay_DOB_AfterProvidedDate+DOD
+  name: H001_2 Children_DOB_After_BornOnOrAfterDate+DOD
   type: http
-  seq: 4
+  seq: 3
 }
 
 post {
@@ -18,17 +18,17 @@ headers {
 
 body:json {
   {
-    "firstName": "Performance",
-    "secondName": "Tester",
+    "firstName": "Daniel",
+    "secondName": "Jackson",
     "dateOfBirth": "1990-06-27",
-    "nino": "AA000099A",
-    "bornOnOrAfter": "2019-12-01"
+    "nino": "{{generatedNino}}011A",
+    "bornOnOrAfter": "2018-01-01"
   }
 }
 
 assert {
   res.status: eq 200
-  res.body.eligible: eq false
+  res.body.eligible: eq true
   res.headers.correlationid: eq {{correlationId}}
 }
 
