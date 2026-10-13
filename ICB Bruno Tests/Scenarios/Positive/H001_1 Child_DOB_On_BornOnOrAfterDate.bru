@@ -1,13 +1,16 @@
 meta {
-  name: H001_2 Children_DOB_After&BeforeProvidedDate
+  name: H001_1 Child_DOB_On_BornOnOrAfterDate
   type: http
-  seq: 2
+  seq: 1
+  tags: [
+    DOWNSTREAM
+  ]
 }
 
 post {
   url: {{api-host}}/{{context-path}}
   body: json
-  auth: inherit
+  auth: none
 }
 
 headers {
@@ -18,11 +21,11 @@ headers {
 
 body:json {
   {
-    "firstName": "Robert",
-    "secondName": "Anderson",
+    "firstName": "Laura",
+    "secondName": "Taylor",
     "dateOfBirth": "1990-06-27",
-    "nino": "{{generatedNino}}007A",
-    "bornOnOrAfter": "2025-12-31"
+    "nino": "{{generatedNino}}008A",
+    "bornOnOrAfter": "2025-12-01"
   }
 }
 
@@ -30,9 +33,4 @@ assert {
   res.status: eq 200
   res.body.eligible: eq true
   res.headers.correlationid: eq {{correlationId}}
-}
-
-settings {
-  encodeUrl: true
-  timeout: 0
 }

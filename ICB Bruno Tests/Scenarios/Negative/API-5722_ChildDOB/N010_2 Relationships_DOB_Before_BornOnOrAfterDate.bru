@@ -1,7 +1,7 @@
 meta {
-  name: N011_1 Child_DOB_AfterProvidedDate+DOD
+  name: N010_2 Relationships_DOB_Before_BornOnOrAfterDate
   type: http
-  seq: 2
+  seq: 1
 }
 
 post {
@@ -18,18 +18,18 @@ headers {
 
 body:json {
   {
-    "firstName": "Andrew",
-    "secondName": "Harris",
+    "firstName": "James",
+    "secondName": "Brown",
     "dateOfBirth": "1990-06-27",
-    "nino": "{{generatedNino}}013A",
-    "bornOnOrAfter": "2023-06-28"
+    "nino": "{{generatedNino}}003A",
+    "bornOnOrAfter": "2024-06-28"
   }
 }
 
 assert {
+  res.status: eq 200
   res.body.eligible: eq false
   res.headers.correlationid: eq {{correlationId}}
-  res.status: eq 200
 }
 
 settings {
