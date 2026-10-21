@@ -18,7 +18,7 @@ package uk.gov.hmrc.test.apis.specs.hicbc
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.GivenWhenThen
+import org.scalatest.{BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.HicbcIndicatorSteps
 import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
@@ -28,14 +28,19 @@ class HicbcIndicatorRequestHeadersSpec
     extends BaseSpec
     with HicbcIndicatorSteps
     with CommonResponseSteps
-    with CommonRequestSteps {
+    with CommonRequestSteps
+    with BeforeAndAfterEach {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    builder.reset()
+  }
 
   Feature("HICBC Indicator Update Endpoint - Request Header Scenarios") {
+
     Scenario(
       "Calling the HICBC indicator endpoint with an invalid accept header returns a 406 accept header invalid response"
     ) {
-
-      builder.reset()
 
       Given("I have a valid bearer token for my privileged application")
       authenticate()
@@ -60,8 +65,6 @@ class HicbcIndicatorRequestHeadersSpec
       "Calling the HICBC indicator endpoint with no accept header returns a 406 accept header invalid response"
     ) {
 
-      builder.reset()
-
       Given("I have a valid bearer token for my privileged application")
       authenticate()
 
@@ -84,8 +87,6 @@ class HicbcIndicatorRequestHeadersSpec
     Scenario(
       "Calling the HICBC indicator endpoint with an invalid content type header returns a 415 unsupported media type response"
     ) {
-
-      builder.reset()
 
       Given("I have a valid bearer token for my privileged application")
       authenticate()

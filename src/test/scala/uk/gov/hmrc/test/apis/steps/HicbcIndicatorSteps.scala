@@ -20,48 +20,90 @@ import uk.gov.hmrc.test.apis.common.IndividualsChildBenefitsApi
 import uk.gov.hmrc.test.apis.helpers.request.CommonRequestSteps
 import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
 
-trait HicbcIndicatorSteps
-    extends IndividualsChildBenefitsApi
-    with CommonRequestSteps
-    with CommonResponseSteps {
+trait HicbcIndicatorSteps extends IndividualsChildBenefitsApi with CommonRequestSteps with CommonResponseSteps {
 
   def iUpdateTheHicbcIndicatorEndpointWithValidOptInPayload(): Unit =
-    iUpdateTheHicbcIndicatorEndpointWithPayload("""{
-      "nino": "AB123456A",
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+      "nino": "JA000016A",
       "optInFrom": "2024-04-02"
     }""")
 
   def iUpdateTheHicbcIndicatorEndpointWithValidOptOutPayload(): Unit =
-    iUpdateTheHicbcIndicatorEndpointWithPayload("""{
-      "nino": "AB123456A",
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+      "nino": "JA000016A",
       "optOutFrom": "2024-04-02"
     }""")
 
   def iUpdateTheHicbcIndicatorEndpointWithNoNinoPayload(): Unit =
-    iUpdateTheHicbcIndicatorEndpointWithPayload("""{
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
       "optInFrom": "2024-04-02"
     }""")
 
   def iUpdateTheHicbcIndicatorEndpointWithNoOptFieldsPayload(): Unit =
-    iUpdateTheHicbcIndicatorEndpointWithPayload("""{
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
       "nino": "AB123456A"
     }""")
 
   def iUpdateTheHicbcIndicatorEndpointWithBothOptFieldsPayload(): Unit =
-    iUpdateTheHicbcIndicatorEndpointWithPayload("""{
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
       "nino": "AB123456A",
       "optInFrom": "2024-04-02",
       "optOutFrom": "2025-05-02"
     }""")
 
-
-  def iUpdateTheHicbcIndicatorEndpointWithUnprocessableEntity(): Unit =
+  def iUpdateTheHicbcIndicatorEndpointWithAccountLockedFailure(): Unit =
     iUpdateTheHicbcIndicatorEndpointWithPayload(
       """{
         "nino": "CB190600D",
         "optInFrom": "2024-04-02"
       }""")
 
+  def iUpdateTheHicbcIndicatorEndpointWithDateBeforeAwardStartFailure(): Unit =
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+        "nino": "AP198804A",
+        "optInFrom": "2024-04-02"
+      }""")
+
+  def iUpdateTheHicbcIndicatorEndpointWithDateAfterAwardEndFailure(): Unit =
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+        "nino": "AP198805A",
+        "optInFrom": "2024-04-02"
+      }""")
+
+  def iUpdateTheHicbcIndicatorEndpointWithServiceUnavailableFailure(): Unit = {
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+      "nino": "AP198807A",
+      "optInFrom": "2024-04-02",
+      "optInFrom": "2025-04-02"
+    }""")
+  }
+
+  def iUpdateTheHicbcIndicatorEndpointWithMissingPaymentDetailsFailure(): Unit = {
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+      "nino": "AP198801A",
+      "optInFrom": "2024-01-02",
+      "optInFrom": "2025-01-02"
+    }""")
+  }
+
+  def iUpdateTheHicbcIndicatorEndpointWithBadHeadersFailure(): Unit = {
+    iUpdateTheHicbcIndicatorEndpointWithPayload(
+      """{
+      "nino": "AB123456B",
+      "optInFrom": "2020-01-02",
+      "optInFrom": "2025-01-02"
+    }""")
+  }
+  
   def iUpdateTheHicbcIndicatorEndpointWithEmptyPayload(): Unit =
-    iUpdateTheHicbcIndicatorEndpointWithPayload("{}")
-}
+      iUpdateTheHicbcIndicatorEndpointWithPayload("{}")
+  }

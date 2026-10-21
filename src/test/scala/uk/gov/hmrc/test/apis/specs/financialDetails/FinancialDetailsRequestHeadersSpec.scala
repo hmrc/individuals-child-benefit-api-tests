@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.apis.specs.financialdetails
+package uk.gov.hmrc.test.apis.specs.financialDetails
 
-import uk.gov.hmrc.test.apis.steps.FinancialDetailsSteps
 import uk.gov.hmrc.test.apis.specs.BaseSpec
+import uk.gov.hmrc.test.apis.steps.FinancialDetailsSteps
 
 class FinancialDetailsRequestHeadersSpec extends BaseSpec with FinancialDetailsSteps {
 
