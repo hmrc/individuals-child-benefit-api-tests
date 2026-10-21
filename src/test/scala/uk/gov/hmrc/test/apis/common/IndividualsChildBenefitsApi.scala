@@ -85,4 +85,30 @@ trait IndividualsChildBenefitsApi extends RequestHelper with ResponseHelper {
         .log()
         .all()
     )
+
+  def iUpdateTheHicbcIndicatorEndpointWithPayload(payload: String): Unit =
+    response(
+      `given`()
+        .spec(specification())
+        .body(payload)
+        .log()
+        .all()
+        .put(s"$baseApiUrl/child-benefit/account/hicbc")
+        .`then`()
+        .log()
+        .all()
+    )
+
+
+  def callGetFinancialDetails(nino: String): Unit = {
+    println(s"Calling $baseApiUrl/child-benefit/financial-details/$nino")
+    response(
+      `given`()
+        .spec(specification())
+        .get(s"$baseApiUrl/child-benefit/financial-details/$nino")
+        .`then`()
+        .log()
+        .all()
+    )
+  }
 }

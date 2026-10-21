@@ -21,8 +21,9 @@ import java.util.UUID
 trait AcceptHeaderHelper {
   self: RequestHelper =>
 
-  def withValidAcceptHeaderVersion(): HmrcRequestSpecBuilder =
+  def withValidAcceptHeaderVersion(): HmrcRequestSpecBuilder = {
     builder.setAccept("application/vnd.hmrc.1.0+json")
+  }
 
   def withIncorrectAcceptHeaderVersion(): HmrcRequestSpecBuilder =
     builder.setAccept("application/vnd.hmrc.99.0+json")
