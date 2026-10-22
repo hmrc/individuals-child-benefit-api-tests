@@ -16,13 +16,11 @@
 
 package uk.gov.hmrc.test.apis.specs.hicbc
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.{BeforeAndAfterEach, GivenWhenThen}
+import org.scalatest.BeforeAndAfterEach
+import uk.gov.hmrc.test.apis.helpers.request.CommonRequestSteps
+import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.HicbcIndicatorSteps
-import uk.gov.hmrc.test.apis.helpers.response.CommonResponseSteps
-import uk.gov.hmrc.test.apis.helpers.request.CommonRequestSteps
 
 class HicbcIndicatorRequestHeadersSpec
     extends BaseSpec

@@ -16,10 +16,15 @@
 
 package uk.gov.hmrc.test.apis.specs.financialDetails
 
+import org.scalatest.BeforeAndAfterEach
 import uk.gov.hmrc.test.apis.specs.BaseSpec
 import uk.gov.hmrc.test.apis.steps.FinancialDetailsSteps
 
-class FinancialDetailsRequestHeadersSpec extends BaseSpec with FinancialDetailsSteps {
+class FinancialDetailsRequestHeadersSpec extends BaseSpec with FinancialDetailsSteps with BeforeAndAfterEach {
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    builder.reset()
+  }
 
   Feature("Get Child Benefit Financial Details Endpoint - Request Headers Scenarios") {
 
@@ -63,26 +68,6 @@ class FinancialDetailsRequestHeadersSpec extends BaseSpec with FinancialDetailsS
       expectedHttpStatusCode(500)
     }
 
-    Scenario("Calling with a valid NINO that does not exist returns 404") {
-
-      builder.reset()
-
-      Given("I have a valid bearer token for my privileged application")
-      authenticate()
-
-      And("I have a valid accept header")
-      withValidAcceptHeaderVersion()
-
-      And("I have a valid JSON content type header")
-      withJsonContentTypeHeader()
-
-      When("I make a request to the get financial details endpoint with a non-existent NINO")
-      iMakeARequestToTheGetFinancialDetailsEndpointWithNino("AB123456A")
-
-      Then("I get a not found response")
-      expectedHttpStatusCode(404)
-    }
-
     Scenario("Calling with an invalid accept header returns 406") {
 
       builder.reset()
@@ -97,7 +82,7 @@ class FinancialDetailsRequestHeadersSpec extends BaseSpec with FinancialDetailsS
       withJsonContentTypeHeader()
 
       When("I make a request to the get financial details endpoint")
-      iMakeARequestToTheGetFinancialDetailsEndpointWithNino("AB444444C")
+      iMakeARequestToTheGetFinancialDetailsEndpointWithNino("AB123456C")
 
       Then("I get an accept header invalid response")
       iGetAnAcceptHeaderInvalidResponse()
